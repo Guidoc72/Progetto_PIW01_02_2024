@@ -6,7 +6,6 @@ CREATE TABLE IF NOT EXISTS aula (
     nome VARCHAR(10) NOT NULL UNIQUE
 );
 
-/*
 CREATE TABLE IF NOT EXISTS utente_has_aula (
 	utente_id INT NOT NULL,
     aula_id INT NOT NULL,
@@ -20,4 +19,3 @@ CREATE TABLE IF NOT EXISTS risultato_has_aula (
     FOREIGN KEY (risultato_id) REFERENCES risultato(id),
     FOREIGN KEY (aula_id) REFERENCES aula(id)
 );
-*/
