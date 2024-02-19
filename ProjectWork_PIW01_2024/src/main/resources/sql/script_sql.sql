@@ -14,10 +14,38 @@ CREATE TABLE IF NOT EXISTS utente_has_aula (
 );
 
 CREATE TABLE IF NOT EXISTS risultato_has_aula (
-	risultato_id INT NOT NULL,
+	quiz_id INT NOT NULL,
+    utente_id INT NOT NULL,
     aula_id INT NOT NULL,
-    FOREIGN KEY (risultato_id) REFERENCES risultato(id),
+    FOREIGN KEY (quiz_id, utente_id) REFERENCES risultato(id_Quiz,id_Utente),
     FOREIGN KEY (aula_id) REFERENCES aula(id)
+    PRIMARY KEY(quiz_id,utente_id,aula_id)
+    );
+create table Risultato (
+                           id_Quiz int,
+                           id_Utente int,
+                           punteggio int,
+                           Data date,
+                           Risposta1 int,
+                           Risposta2 int,
+                           Risposta3 int,
+                           Risposta4 int,
+                           Risposta5 int,
+                           Risposta6 int,
+                           Risposta7 int,
+                           Rsiposta8 int,
+                           Risposta9 int,
+                           Risposta10 int,
+                           Primary key(id_Quiz, id_Utente)
+);
+
+create table Quiz_Has_Risultato (
+                                    Quiz_id int,
+                                    Risultato_id_Utente int,
+
+                                    Primary key (Quiz_id, Risultato_id_Utente),
+                                    Foreign key (Quiz_id) references Quiz(id),
+                                    Foreign key (Risultato_id_Utente) references Risultato (id_Utente)
 );
 
 
