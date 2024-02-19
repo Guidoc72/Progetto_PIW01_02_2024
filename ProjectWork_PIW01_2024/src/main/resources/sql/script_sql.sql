@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS risultato_has_aula (
     FOREIGN KEY (aula_id) REFERENCES aula(id)
 );
 
+
 CREATE TABLE IF NOT EXISTS utente(
 	id 			int not null auto_increment,
 	nome 		varchar(45) not null,
@@ -44,4 +45,5 @@ CREATE TABLE IF NOT EXISTS quiz_has_utente(
     on delete no action
     on update cascade
     );
+
 
