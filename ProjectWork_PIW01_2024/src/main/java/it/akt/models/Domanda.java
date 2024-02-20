@@ -11,7 +11,6 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -41,21 +40,29 @@ public class Domanda {
 	@Column(name = "risposta_giusta", nullable = false)
 	private int risposta_giusta;
 
-	@Column(name = "id_tema", nullable = false)
-	private int id_tema;
+	@ManyToMany(mappedBy = "domande")
+	private Set<Quiz> quiz = new HashSet<>();
+	
 
+	@ManyToOne
+	@JoinColumn(name = "tema_id", nullable = false)
+	private Tema tema;
+	
 	public Domanda() {
 	}
 
-	public Domanda(String quesito, String risposta1, String risposta2, String risposta3, String risposta4,
-			int risposta_giusta, int id_tema) {
-		this.setQuesito(quesito);
-		this.setRisposta1(risposta1);
-		this.setRisposta2(risposta2);
-		this.setRisposta3(risposta3);
-		this.setRisposta4(risposta4);
-		this.setRisposta_giusta(risposta_giusta);
-		this.setId_tema(id_tema);
+	public Domanda(Long id, String quesito, String risposta1, String risposta2, String risposta3, String risposta4,
+			int risposta_giusta, Set<Quiz> quiz, Tema tema) {
+		super();
+		this.id = id;
+		this.quesito = quesito;
+		this.risposta1 = risposta1;
+		this.risposta2 = risposta2;
+		this.risposta3 = risposta3;
+		this.risposta4 = risposta4;
+		this.risposta_giusta = risposta_giusta;
+		this.quiz = quiz;
+		this.tema = tema;
 	}
 
 	public Long getId() {
@@ -114,22 +121,21 @@ public class Domanda {
 		this.risposta_giusta = risposta_giusta;
 	}
 
-	public int getId_tema() {
-		return id_tema;
+	public Set<Quiz> getQuiz() {
+		return quiz;
+	}
+	
+	public void setQuiz(Set<Quiz> quiz) {
+		this.quiz = quiz;
+	}
+	
+	public Tema getTema() {
+		return tema;
+	}
+	
+	public void setTema(Tema tema) {
+		this.tema = tema;
 	}
 
-	public void setId_tema(int id_tema) {
-		this.id_tema = id_tema;
-	}
-
-	@ManyToMany(cascade = CascadeType.PERSIST)
-	@JoinTable(name = "quiz_has_domanda",
-	joinColumns = @JoinColumn(name = "domanda_id"),
-	inverseJoinColumns = @JoinColumn(name = "quiz_id"))
-	private Set<Quiz> quizzes = new HashSet<>();
-
-	@ManyToOne
-	@JoinColumn(name = "id_tema", nullable = false)
-	private Tema tema;
 
 }
