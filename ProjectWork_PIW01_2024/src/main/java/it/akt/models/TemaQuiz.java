@@ -9,7 +9,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import it.akt.models.Quiz;
 
 @Entity
 @Table(name = "tema_quiz")
