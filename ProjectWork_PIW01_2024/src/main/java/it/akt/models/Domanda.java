@@ -116,7 +116,5 @@ import org.springframework.data.annotation.Id;
 			joinColumns= @JoinColumn(name="domanda_id"),
 			inverseJoinColumns=@JoinColumn(name="quiz_id"))
 	private Set<Quiz> quizzes=new HashSet<>();
-	
-	
-	
+
 }
