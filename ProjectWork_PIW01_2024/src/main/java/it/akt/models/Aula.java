@@ -34,7 +34,7 @@ public class Aula {
 	//vedi classe Utente
 	@ManyToMany(mappedBy = "utenti")
 	private Set<Utente> utenti = new HashSet<>();
-
+	
 	public Aula() {
 	}
 
