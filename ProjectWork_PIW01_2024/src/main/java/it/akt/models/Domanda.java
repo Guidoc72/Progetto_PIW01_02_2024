@@ -9,12 +9,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import org.springframework.data.annotation.Id;
 
 @Entity
 	@Table(name = "domanda")
@@ -39,11 +39,24 @@ import org.springframework.data.annotation.Id;
 	    @Column(name = "risposta4", length = 1000, nullable = false)
 	    private String risposta4;
 
-	    @Column(name = "rispostaGiusta", nullable = false)
-	    private int rispostaGiusta;
+	    @Column(name = "risposta_giusta", nullable = false)
+	    private int risposta_giusta;
 
 	    @Column(name = "id_tema", nullable = false)
-	    private int idTema;
+	    private int id_tema;
+	    
+	    public Domanda () {}
+		
+		public Domanda(String quesito, String risposta1, String risposta2, String risposta3, String risposta4,
+				int risposta_giusta, int id_tema) {
+			this.setQuesito(quesito);
+			this.setRisposta1(risposta1);
+			this.setRisposta2(risposta2);
+			this.setRisposta3(risposta3);
+			this.setRisposta4(risposta4);
+			this.setRisposta_giusta(risposta_giusta);
+			this.setId_tema(id_tema);
+		}
 
 		public Long getId() {
 			return id;
@@ -93,29 +106,31 @@ import org.springframework.data.annotation.Id;
 			this.risposta4 = risposta4;
 		}
 
-		public int getRispostaGiusta() {
-			return rispostaGiusta;
+		public int getRisposta_giusta() {
+			return risposta_giusta;
 		}
 
-		public void setRispostaGiusta(int rispostaGiusta) {
-			this.rispostaGiusta = rispostaGiusta;
+		public void setRisposta_giusta(int risposta_giusta) {
+			this.risposta_giusta = risposta_giusta;
 		}
 
-		public int getIdTema() {
-			return idTema;
+		public int getId_tema() {
+			return id_tema;
 		}
 
-		public void setIdTema(int idTema) {
-			this.idTema = idTema;
+		public void setId_tema(int id_tema) {
+			this.id_tema = id_tema;
 		}
-//	@ManyToOne
-//	@JoinColumn(name="id_tema",nullable=false)
-//	private Tema tema;
-		@ManyToMany(cascade=CascadeType.PERSIST)
-		@JoinTable(name="quiz_has_domanda",
+
+	@ManyToMany(cascade=CascadeType.PERSIST)
+	@JoinTable(name="quiz_has_domanda",
 			joinColumns= @JoinColumn(name="domanda_id"),
 			inverseJoinColumns=@JoinColumn(name="quiz_id"))
-	private Set<Quiz> quizzes=new HashSet<>();
+	private Set<Quiz> quizzes = new HashSet<>();
+	
+	@ManyToOne
+	@JoinColumn(name="id_tema", nullable = false)
+	private Tema tema;
 	
 	
 	
