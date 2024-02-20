@@ -26,16 +26,15 @@ public class TemaQuiz {
     private String nome;
 
     // Relazione uno a molti con Quiz
-    @OneToMany
+    @OneToMany(mappedBy = "tema")
     private Set<Quiz> quiz;
 
     //Relazione uno a molti con Domanda
-    @OneToMany
+    @OneToMany(mappedBy = "tema")
     private Set<Domanda> domande;
     
     //costruttore
-    public TemaQuiz(Long id, @NotEmpty String nome, Set<Quiz> quiz, Set<Domanda> domande) {
-    	super();
+    public TemaQuiz(Long id, String nome, Set<Quiz> quiz, Set<Domanda> domande) {
     	this.id = id;
     	this.nome = nome;
     	this.quiz = quiz;

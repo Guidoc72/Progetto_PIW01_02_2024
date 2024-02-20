@@ -34,7 +34,7 @@ public class Quiz {
     //Relazione molti a uno con TemaQuiz
     @ManyToOne
     @JoinColumn(name = "id_tema")
-    private TemaQuiz temaQuiz;
+    private TemaQuiz tema;
     
     //Relazione Molti a Molti tra Quiz e Aula
     @ManyToMany
@@ -68,12 +68,12 @@ public class Quiz {
     private Set<Utente> utenti = new HashSet<>();
     
     //costruttore
-    public Quiz(Long id, @NotEmpty LocalDate data, TemaQuiz temaQuiz, Set<Aula> aule, Set<Risultato> risultati,
+    public Quiz(Long id, @NotEmpty LocalDate data, TemaQuiz tema, Set<Aula> aule, Set<Risultato> risultati,
     		Set<Domanda> domande) {
     	super();
     	this.id = id;
     	this.data = data;
-    	this.temaQuiz = temaQuiz;
+    	this.tema = tema;
     	this.aule = aule;
     	this.risultati = risultati;
     	this.domande = domande;
@@ -99,12 +99,12 @@ public class Quiz {
 		this.data = data;
 	}
 
-	public TemaQuiz getTemaQuiz() {
-		return temaQuiz;
+	public TemaQuiz getTema() {
+		return tema;
 	}
 
-	public void setTemaQuiz(TemaQuiz temaQuiz) {
-		this.temaQuiz = temaQuiz;
+	public void setTema(TemaQuiz tema) {
+		this.tema = tema;
 	}
 
 	public Set<Aula> getAule() {
@@ -137,7 +137,7 @@ public class Quiz {
 	//ToString
 	@Override
 	public String toString() {
-		return "Quiz [id=" + id + ", data=" + data + ", temaQuiz=" + temaQuiz + ", aule=" + aule + ", risultati="
+		return "Quiz [id=" + id + ", data=" + data + ", temaQuiz=" + tema + ", aule=" + aule + ", risultati="
 				+ risultati + ", domande=" + domande + "]";
 	}
 	
