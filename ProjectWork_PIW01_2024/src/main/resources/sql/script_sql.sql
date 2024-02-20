@@ -1,3 +1,6 @@
+CREATE DATABASE IF NOT EXISTS QuizDB;
+USE QuizDB;
+
 create table if not exists domanda (
 id int primary key auto_increment,
 quesito varchar (1000) NOT NULL,
@@ -30,9 +33,6 @@ CREATE TABLE quiz (
     tema_quiz_id INT,
     FOREIGN KEY (tema_quiz_id) REFERENCES temaquiz(id)
 );
-
-CREATE DATABASE IF NOT EXISTS QuizDB;
-USE QuizDB;
 
 CREATE TABLE IF NOT EXISTS aula (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -82,43 +82,18 @@ create table Quiz_Has_Risultato (
     Foreign key (Quiz_id,Risultato_id_Utente) references Risultato (id_Quiz,id_Utente)
 );
 
-
-CREATE TABLE IF NOT EXISTS utente(
-    id 			int not null auto_increment,
-    nome 		varchar(45) not null,
-    cognome		varchar(45) not null,
-    email 		varchar(100) not null,
-    telefono 	varchar(20) not null,
-    role 		int not null,
-    isEnabled 	tinyint NOT NULL default 1,
-    password 	varchar(100) not null,
-    primary key (id)
-    );
-
-CREATE TABLE IF NOT EXISTS quiz_has_utente(
-    quiz_id int not null,
-    utente_id int not null,
-    primary key (quiz_id, utente_id),
-    foreign key (utente_id) references utente(id)
-    on delete no action
-    on update cascade,
-    foreign key (quiz_id) references quiz(id)
-    on delete no action
-    on update cascade
-    );
-
 -- Creazione della tabella TemaQuiz
-CREATE TABLE temaquiz (
+CREATE TABLE tema (
   id INT PRIMARY KEY AUTO_INCREMENT,
-  nometema VARCHAR(255) NOT NULL
+  nome VARCHAR(255) NOT NULL
 );
 
--- Creazione della tabella Quiz con chiave esterna verso TemaQuiz
+-- Creazione della tabella Quiz con chiave esterna verso Tema
 CREATE TABLE quiz (
   id INT PRIMARY KEY AUTO_INCREMENT,
   data_quiz DATE,
-  tema_quiz_id INT,
-  FOREIGN KEY (tema_quiz_id) REFERENCES temaquiz(id)
+  tema_id INT,
+  FOREIGN KEY (tema_id) REFERENCES tema(id)
 );
 
 create table if not exists domanda (
