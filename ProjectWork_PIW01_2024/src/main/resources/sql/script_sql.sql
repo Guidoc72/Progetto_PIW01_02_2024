@@ -1,7 +1,7 @@
 -- Creazione della tabella TemaQuiz
-CREATE TABLE temaquiz (
+CREATE TABLE tema (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    nometema VARCHAR(255) NOT NULL
+    nome VARCHAR(255) NOT NULL
 );
 
 -- Creazione della tabella Quiz con chiave esterna verso TemaQuiz
@@ -9,5 +9,5 @@ CREATE TABLE quiz (
     id INT PRIMARY KEY AUTO_INCREMENT,
     data DATE,
     tema_quiz_id INT,
-    FOREIGN KEY (tema_quiz_id) REFERENCES temaquiz(id)
+    FOREIGN KEY (tema_quiz_id) REFERENCES tema(id)
 );
