@@ -29,7 +29,7 @@ public class Aula {
 	private Set<Quiz> quiz = new HashSet<>();
 	
 	//vedi classe Utente
-	@ManyToMany(mappedBy = "utenti")
+	@ManyToMany(mappedBy = "aule")
 	private Set<Utente> utenti = new HashSet<>();
 	
 	public Aula() {
