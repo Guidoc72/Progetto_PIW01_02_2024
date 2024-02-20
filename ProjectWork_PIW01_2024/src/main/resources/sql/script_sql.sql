@@ -16,3 +16,18 @@ PRIMARY KEY (quiz_id, domanda_id),
 FOREIGN KEY (quiz_id) REFERENCES quiz(id),   
  FOREIGN KEY (domanda_id) REFERENCES domanda(id)
 );
+
+-- Creazione della tabella TemaQuiz
+CREATE TABLE temaquiz (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nometema VARCHAR(255) NOT NULL
+);
+
+-- Creazione della tabella Quiz con chiave esterna verso TemaQuiz
+CREATE TABLE quiz (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    data DATE,
+    tema_quiz_id INT,
+    FOREIGN KEY (tema_quiz_id) REFERENCES temaquiz(id)
+);
+
