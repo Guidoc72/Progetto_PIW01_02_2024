@@ -3,7 +3,6 @@ package it.akt.models;
 import java.util.HashSet;
 import java.util.Set;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,8 +10,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "aula")
@@ -22,21 +23,16 @@ public class Aula {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@NotEmpty
 	@Column(name = "nome", nullable = false)
 	private String nome;
-
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "risultato_has_aula", 
-				joinColumns = @JoinColumn(name = "aula_id"), 
-				inverseJoinColumns = @JoinColumn(name = "risultato_id", 
-				referencedColumnName = "id"))
-	private Set<Risultato> risultati = new HashSet<>();
-
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "utente_has_aula", 
-				joinColumns = @JoinColumn(name = "aula_id"), 
-				inverseJoinColumns = @JoinColumn(name = "utente_id", 
-				referencedColumnName = "id"))
+	
+	//vedi classe Quiz
+	@ManyToMany(mappedBy = "aule")
+	private Set<Quiz> quiz = new HashSet<>();
+	
+	//vedi classe Utente
+	@ManyToMany(mappedBy = "utenti")
 	private Set<Utente> utenti = new HashSet<>();
 
 	public Aula() {
@@ -49,10 +45,10 @@ public class Aula {
 	}
 
 	// costruttore con Set
-	public Aula(Long id, String nome, Set<Risultato> risultati, Set<Utente> utenti) {
+	public Aula(Long id, String nome, Set<Quiz> quiz, Set<Utente> utenti) {
 		this.id = id;
 		this.nome = nome;
-		this.risultati = risultati;
+		this.quiz = quiz;
 		this.utenti = utenti;
 	}
 
@@ -72,12 +68,12 @@ public class Aula {
 		this.nome = nome;
 	}
 
-	public Set<Risultato> getRisultati() {
-		return risultati;
+	public Set<Quiz> getQuiz() {
+		return quiz;
 	}
 
-	public void setRisultati(Set<Risultato> risultati) {
-		this.risultati = risultati;
+	public void setQuiz(Set<Quiz> quiz) {
+		this.quiz = quiz;
 	}
 
 	public Set<Utente> getUtenti() {
