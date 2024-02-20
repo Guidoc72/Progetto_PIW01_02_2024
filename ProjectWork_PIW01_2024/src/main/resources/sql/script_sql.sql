@@ -1,26 +1,20 @@
-create table Risultato (
-                           id_Quiz int,
-                           id_Utente int,
-                           punteggio int,
-                           Data date,
-                           Risposta1 int,
-                           Risposta2 int,
-                           Risposta3 int,
-                           Risposta4 int,
-                           Risposta5 int,
-                           Risposta6 int,
-                           Risposta7 int,
-                           Rsiposta8 int,
-                           Risposta9 int,
-                           Risposta10 int,
-                           Primary key(id_Quiz, id_Utente)
-);
+create table Risultato(
+    id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    punteggio INT,
+    data DATE,
+    Risposta1 INT,
+    Risposta2 INT,
+    Risposta3 INT,
+    Risposta4 INT,
+    Risposta5 INT,
+    Risposta6 INT,
+    Risposta7 INT,
+    Risposta8 INT,
+    Risposta9 INT,
+    Risposta10 INT,
+    Quiz_id INT,
+    Utente_id INT
+    FOREIGN KEY(Quiz_id) REFERENCES Quiz(id),
+    FOREIGN KEY(Utente_id) REFERENCES Utente(id)
 
-create table Quiz_Has_Risultato (
-                                    Quiz_id int,
-                                    Risultato_id_Utente int,
-
-                                    Primary key (Quiz_id, Risultato_id_Utente),
-                                    Foreign key (Quiz_id) references Quiz(Id),
-                                    Foreign key (Risultato_id_Utente) references Risultato (id_Utente)
 );
