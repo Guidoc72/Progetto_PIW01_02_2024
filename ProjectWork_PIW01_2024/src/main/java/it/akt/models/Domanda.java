@@ -46,13 +46,13 @@ public class Domanda {
 
 	@ManyToOne
 	@JoinColumn(name = "tema_id", nullable = false)
-	private Tema tema;
+	private TemaQuiz tema;
 	
 	public Domanda() {
 	}
 
 	public Domanda(Long id, String quesito, String risposta1, String risposta2, String risposta3, String risposta4,
-			int risposta_giusta, Set<Quiz> quiz, Tema tema) {
+			int risposta_giusta, Set<Quiz> quiz, TemaQuiz tema) {
 		super();
 		this.id = id;
 		this.quesito = quesito;
@@ -129,11 +129,11 @@ public class Domanda {
 		this.quiz = quiz;
 	}
 	
-	public Tema getTema() {
+	public TemaQuiz getTema() {
 		return tema;
 	}
 	
-	public void setTema(Tema tema) {
+	public void setTema(TemaQuiz tema) {
 		this.tema = tema;
 	}
 
