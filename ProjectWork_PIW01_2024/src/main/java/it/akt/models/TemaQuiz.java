@@ -12,7 +12,7 @@ import jakarta.persistence.Table;
 import it.akt.models.Quiz;
 
 @Entity
-@Table(name = "tema_quiz")
+@Table(name = "tema")
 public class TemaQuiz {
 
 	//indica l'id del Tema
@@ -21,17 +21,17 @@ public class TemaQuiz {
     private Long id;
 
     //indica il nome del tema
-    @Column(name = "nometema")
-    private String nometema;
+    @Column(name = "nome")
+    private String nome;
 
     // Relazione uno a molti con Quiz
     @OneToMany
     private List<Quiz> quizList;
 
     //costruttore
-	public TemaQuiz(Long id, String nometema, List<Quiz> quizList) {
+	public TemaQuiz(Long id, String nome, List<Quiz> quizList) {
 		this.id = id;
-		this.nometema = nometema;
+		this.nome = nome;
 		this.quizList = quizList;
 	}
     
@@ -47,11 +47,11 @@ public class TemaQuiz {
 	}
 
 	public String getNomeTema() {
-		return nometema;
+		return nome;
 	}
 
-	public void setNomeTema(String nometema) {
-		this.nometema = nometema;
+	public void setNomeTema(String nome) {
+		this.nome = nome;
 	}
 
 	public List<Quiz> getQuizList() {
@@ -65,7 +65,7 @@ public class TemaQuiz {
 	//ToString
 	@Override
 	public String toString() {
-		return "TemaQuiz [id=" + id + ", nome=" + nometema + ", quizList=" + quizList + "]";
+		return "TemaQuiz [id=" + id + ", nome=" + nome + ", quizList=" + quizList + "]";
 	}
 	
 }
