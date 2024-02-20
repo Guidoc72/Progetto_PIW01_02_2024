@@ -1,9 +1,8 @@
 package it.akt.models;
-import java.io.Serializable;
+
 import java.util.HashSet;
 import java.util.Set;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,10 +17,8 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 
 @Entity
-@Table (name ="utente", schema="quizDB")
-public class Utente implements Serializable{
-
-	private static final long serialVersionUID = 1L;
+@Table (name = "utente")
+public class Utente {
 
 	@Id 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,55 +31,58 @@ public class Utente implements Serializable{
 	
 	@Pattern(regexp = "[a-zA-Z\\s]{3,30}", message = "La stringa deve contenere almeno 3 caratteri diversi da numeri e simboli")
 	@NotEmpty(message = "Il campo non può essere vuto")	
-	@Column(name="nome", nullable = false, length = 40)
+	@Column(name="cognome", nullable = false, length = 40)
 	private String cognome;
 	
 	@Email //controlla che il formato sia Email valido
-	@Column(nullable = false, length = 40)
+	@Column(name = "email", nullable = false, length = 40)
 	private String email;
 	
-	@Column(nullable = true, length = 15)
+	@Column(name = "telefono", nullable = true, length = 15)
 	private String telefono;
 	
-	@Column(nullable = false, length = 15)
-	private int role;
+	@Column(name = "ruolo", nullable = false, length = 15)
+	private int ruolo;
 	
-	@Column
+	@Column(name = "abilitato")
 	private boolean isEnabled;
 	
-	 @ManyToMany(cascade = CascadeType.ALL)
-	    @JoinTable(name = "quiz_has_utente",		
-	            joinColumns = @JoinColumn(name = "user_id"),  
-	            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-	 
-	 Set<Quiz> quizUtente = new HashSet<>();
+	@ManyToMany(mappedBy = "utenti")	
+	Set<Quiz> quiz = new HashSet<>();
 
-	
+	@ManyToMany
+	@JoinTable(name = "utente_has_aula",
+				joinColumns = @JoinColumn(name = "utente_id"),
+				inverseJoinColumns = @JoinColumn(name = "aula_id")
+				)
+	private Set<Aula> aule = new HashSet<>();
+		
 	public Utente() {}
-	
-	public Utente(Long id, String nome, String cognome, String email, String telefono, int role, boolean isEnabled) {
-		this.id=id;
-		this.nome=nome;
-		this.cognome=cognome;
-		this.email=email;
-		this.telefono=telefono;
-		this.role=role;
-		this.isEnabled=isEnabled;
-		
-		
+
+	//costruttore con Set
+	public Utente(Long id, String nome, String cognome, String email, 
+			String telefono, int ruolo, boolean isEnabled, Set<Quiz> quiz, Set<Aula> aule) {
+		this.id = id;
+		this.nome = nome;
+		this.cognome = cognome;
+		this.email = email;
+		this.telefono = telefono;
+		this.ruolo = ruolo;
+		this.isEnabled = isEnabled;
+		this.quiz = quiz;
+		this.aule = aule;
 	}
 	
-	
-	public Utente(String nome, String cognome, String email, String telefono, int role, boolean isEnabled) {
-	
-		this.nome=nome;
-		this.cognome=cognome;
-		this.email=email;
-		this.telefono=telefono;
-		this.role=role;
-		this.isEnabled=isEnabled;
-		
-		
+	//costruttore senza Set
+	public Utente(Long id, String nome, String cognome, String email, 
+			String telefono, int ruolo, boolean isEnabled) {
+		this.id = id;
+		this.nome = nome;
+		this.cognome = cognome;
+		this.email = email;
+		this.telefono = telefono;
+		this.ruolo = ruolo;
+		this.isEnabled = isEnabled;
 	}
 
 	public Long getId() {
@@ -125,12 +125,12 @@ public class Utente implements Serializable{
 		this.telefono = telefono;
 	}
 
-	public int getRole() {
-		return role;
+	public int getRuolo() {
+		return ruolo;
 	}
 
-	public void setRole(int role) {
-		this.role = role;
+	public void setRuolo(int ruolo) {
+		this.ruolo = ruolo;
 	}
 
 	public boolean isEnabled() {
@@ -140,15 +140,27 @@ public class Utente implements Serializable{
 	public void setEnabled(boolean isEnabled) {
 		this.isEnabled = isEnabled;
 	}
-	
-	
-	
+
+	public Set<Quiz> getQuiz() {
+		return quiz;
+	}
+
+	public void setQuiz(Set<Quiz> quiz) {
+		this.quiz = quiz;
+	}
+
+	public Set<Aula> getAule() {
+		return aule;
+	}
+
+	public void setAule(Set<Aula> aule) {
+		this.aule = aule;
+	}
+
 	@Override
 	public String toString() {
 		return "Utente [id=" + id + ", nome=" + nome + ", cognome=" + cognome + ", email=" + email + ", telefono="
-				+ telefono + ", role=" + role + ", isEnabled=" + isEnabled + "]";
+				+ telefono + ", ruolo=" + ruolo + ", isEnabled=" + isEnabled + "]";
 	}
-	
-	
 
 }
