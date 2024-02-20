@@ -34,7 +34,7 @@ public class Utente implements Serializable{
 	
 	@Pattern(regexp = "[a-zA-Z\\s]{3,30}", message = "La stringa deve contenere almeno 3 caratteri diversi da numeri e simboli")
 	@NotEmpty(message = "Il campo non può essere vuto")	
-	@Column(name="nome", nullable = false, length = 40)
+	@Column(name="cognome", nullable = false, length = 40)
 	private String cognome;
 	
 	@Email //controlla che il formato sia Email valido

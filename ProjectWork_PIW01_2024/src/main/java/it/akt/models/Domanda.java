@@ -8,13 +8,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import org.springframework.data.annotation.Id;
 
 @Entity
 	@Table(name = "domanda")
@@ -108,9 +107,7 @@ import org.springframework.data.annotation.Id;
 		public void setIdTema(int idTema) {
 			this.idTema = idTema;
 		}
-//	@ManyToOne
-//	@JoinColumn(name="id_tema",nullable=false)
-//	private Tema tema;
+
 		@ManyToMany(cascade=CascadeType.PERSIST)
 		@JoinTable(name="quiz_has_domanda",
 			joinColumns= @JoinColumn(name="domanda_id"),
