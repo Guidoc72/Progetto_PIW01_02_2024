@@ -76,5 +76,4 @@ public class TemaQuizService {
     public void deleteTemaById(Long id) {
         temaQuizRepository.deleteById(id);
     }
-    
 }

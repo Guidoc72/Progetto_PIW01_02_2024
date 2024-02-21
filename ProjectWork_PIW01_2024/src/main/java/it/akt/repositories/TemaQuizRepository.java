@@ -12,5 +12,4 @@ import it.akt.models.TemaQuiz;
 @Repository
 public interface TemaQuizRepository extends ListCrudRepository<TemaQuiz, Long> {
 
-
 }

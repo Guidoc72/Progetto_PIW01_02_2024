@@ -50,5 +50,4 @@ public interface QuizRepository extends ListCrudRepository<Quiz, Long> {
 	 * @param temaQuiz Il tema per cui cercare i quiz associati.
 	 */
 	List<Quiz> findQuizByTemaQuiz(TemaQuiz temaQuiz);
-
 }

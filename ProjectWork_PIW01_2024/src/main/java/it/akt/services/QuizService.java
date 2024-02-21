@@ -154,7 +154,6 @@ public class QuizService {
         return quizRepository.save(quizEsistente);    
     }
     
-    
     /**
      * Restituisce un insieme di oggetti Quiz associati a una specifica domanda.
      *
