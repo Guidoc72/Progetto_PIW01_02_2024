@@ -27,10 +27,10 @@ public class TemaQuizService {
         return temaQuizRepository.save(temaQuiz);
     }
 
-    /**
-     * Restituisce una lista di tutti i temi
-     * @return List temaQuiz object
-     */
+/**
+ * Restituisce una lista di tutti i temi
+ * @return List temaQuiz object
+ */
     public List<TemaQuiz> getAllTemi() {
     	return temaQuizRepository.findAll();
     }
