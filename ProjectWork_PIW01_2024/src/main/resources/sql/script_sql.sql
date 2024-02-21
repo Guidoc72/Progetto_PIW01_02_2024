@@ -8,22 +8,21 @@ CREATE TABLE IF NOT EXISTS aula (
 
 create table if not exists risultato (
    id int primary key not null auto_increment,
-   id_quiz int not null,
-   id_utente int not null,
+   quiz_id int not null,
+   utente_id int not null,
    punteggio int,
-   data date,
-   Risposta1 int,
-   Risposta2 int,
-   Risposta3 int,
-   Risposta4 int,
-   Risposta5 int,
-   Risposta6 int,
-   Risposta7 int,
-   Rsiposta8 int,
-   Risposta9 int,
-   Risposta10 int,
-   foreign key (id_quiz) references quiz(id),
-   foreign key (id_utente) references utente(id)
+   risposta1 int,
+   risposta2 int,
+   risposta3 int,
+   risposta4 int,
+   risposta5 int,
+   risposta6 int,
+   risposta7 int,
+   rsiposta8 int,
+   risposta9 int,
+   risposta10 int,
+   foreign key (quiz_id) references quiz(id),
+   foreign key (utente_id) references utente(id)
 );
 
 -- Creazione della tabella Tema
@@ -37,6 +36,7 @@ CREATE TABLE quiz (
   id INT PRIMARY KEY AUTO_INCREMENT,
   data DATE,
   tema_id INT,
+  aula_id INT,
   FOREIGN KEY (tema_id) REFERENCES tema(id),
   FOREIGN KEY (aula_id) REFERENCES aula(id)
 );
@@ -48,19 +48,19 @@ create table if not exists domanda (
     risposta2 varchar(1000) not null,
     risposta3 varchar(1000) not null,
     risposta4 varchar(1000) not null,
-    rispostaGiusta int not null,
-    id_tema int not null,
-    foreign key(id_tema) references temaquiz(id)
+    risposta_giusta int not null,
+    tema_id int not null,
+    foreign key(tema_id) references tema(id)
 );
 
-CREATE TABLE IF NOT EXISTS utente(
+CREATE TABLE IF NOT EXISTS utente (
     id int primary key not null auto_increment,
     nome varchar(45) not null,
     cognome	varchar(45) not null,
     email varchar(100) not null,
     telefono varchar(20) not null,
-    role tinyint(1) not null default 1,
-    isEnabled tinyint NOT NULL default 1,
+    ruolo tinyint not null default 1,
+    isEnabled tinyint not null default 1,
     password varchar(100) not null
 );
     
@@ -94,3 +94,4 @@ CREATE TABLE IF NOT EXISTS utente_has_aula (
     FOREIGN KEY (utente_id) REFERENCES utente(id),
     FOREIGN KEY (aula_id) REFERENCES aula(id)
 );
+
