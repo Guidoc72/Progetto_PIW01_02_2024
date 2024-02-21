@@ -15,6 +15,7 @@ import jakarta.validation.constraints.NotEmpty;
 
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -47,7 +48,7 @@ public class Quiz {
     
     //Relazione Uno a Molti tra Quiz e Risultato
     @OneToMany(mappedBy = "quiz")
-    private Set<Risultato> risultati = new HashSet<>();
+    private List<Risultato> risultati;
     
     //Relazione Molti a Molti tra Quiz e Domanda
     @ManyToMany
@@ -68,9 +69,8 @@ public class Quiz {
     private Set<Utente> utenti = new HashSet<>();
     
     //costruttore
-    public Quiz(Long id, @NotEmpty LocalDate data, TemaQuiz tema, Set<Aula> aule, Set<Risultato> risultati,
+    public Quiz(Long id, @NotEmpty LocalDate data, TemaQuiz tema, Set<Aula> aule, List<Risultato> risultati,
     		Set<Domanda> domande) {
-    	super();
     	this.id = id;
     	this.data = data;
     	this.tema = tema;
@@ -115,12 +115,12 @@ public class Quiz {
 		this.aule = aule;
 	}
 
-	public Set<Risultato> getRisultati() {
+	public List<Risultato> getRisultati() {
 		return risultati;
 	}
 
 
-	public void setRisultati(Set<Risultato> risultati) {
+	public void setRisultati(List<Risultato> risultati) {
 		this.risultati = risultati;
 	}
 

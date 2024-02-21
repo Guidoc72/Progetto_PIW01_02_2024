@@ -1,5 +1,6 @@
 package it.akt.models;
 
+import java.util.List;
 import java.util.Set;
 
 import jakarta.persistence.Column;
@@ -27,14 +28,14 @@ public class TemaQuiz {
 
     // Relazione uno a molti con Quiz
     @OneToMany(mappedBy = "tema")
-    private Set<Quiz> quiz;
+    private List<Quiz> quiz;
 
     //Relazione uno a molti con Domanda
     @OneToMany(mappedBy = "tema")
-    private Set<Domanda> domande;
+    private List<Domanda> domande;
     
     //costruttore
-    public TemaQuiz(Long id, String nome, Set<Quiz> quiz, Set<Domanda> domande) {
+    public TemaQuiz(Long id, String nome, List<Quiz> quiz, List<Domanda> domande) {
     	this.id = id;
     	this.nome = nome;
     	this.quiz = quiz;
@@ -60,19 +61,19 @@ public class TemaQuiz {
 		this.nome = nome;
 	}
 
-	public Set<Quiz> getQuiz() {
+	public List<Quiz> getQuiz() {
 		return quiz;
 	}
 
-	public void setQuiz(Set<Quiz> quiz) {
+	public void setQuiz(List<Quiz> quiz) {
 		this.quiz = quiz;
 	}
 	
-	public Set<Domanda> getDomande() {
+	public List<Domanda> getDomande() {
 		return domande;
 	}
 
-	public void setDomande(Set<Domanda> domande) {
+	public void setDomande(List<Domanda> domande) {
 		this.domande = domande;
 	}
 
