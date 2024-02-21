@@ -53,7 +53,6 @@ Modifica un'aula del database e restituisce l'oggetto modificato.
 	public Aula getAulaById(Long id) {
 		return aulaRepository.findById(id).orElseThrow(() -> 
 			new RuntimeException(String.format("Non esiste nessuna classe con id: %d",id)));
-		
 	}
 
 /**
@@ -68,18 +67,14 @@ Modifica un'aula del database e restituisce l'oggetto modificato.
  * Elimina un'aula dal database tramite il suo id.
  * @param id aula object
  */
-	
 	public void deleteAulaById(Long id) {
 	      aulaRepository.deleteById(id);
 	}
 	
-	
-	
 /**
  * Restituisce la lista di studenti dell'aula nel database
- * @return
+ * @return Lista utente Utente object
  */
-	
 	public List<Utente> getAllUtentiInAula() {
 		return aulaRepository.findAll();
 	}
@@ -90,10 +85,7 @@ Modifica un'aula del database e restituisce l'oggetto modificato.
  * @param id utente object
  * @return utente Utente object
  */
-	
 	public Utente getUtenteByIdInAula(Long aula_id, Long utente_id) {
 		 return aulaRepository.getUtenteByIdInAula(aula_id, utente_id);
 	 }
-	
-	
 }
