@@ -6,5 +6,7 @@ import org.springframework.data.repository.ListCrudRepository;
 import it.akt.models.Domanda;
 
 public interface DomandaRepository extends ListCrudRepository <Domanda, Long> {
-	 List<Domanda> findByTema(TemaQuiz tema);
+	
+	 public List<Domanda> findDomandaByTema(TemaQuiz tema);
+	 
 }

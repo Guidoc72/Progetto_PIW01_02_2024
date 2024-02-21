@@ -51,7 +51,6 @@ public class Domanda {
 
 	public Domanda(Long id, String quesito, String risposta1, String risposta2, String risposta3, String risposta4,
 			int risposta_giusta, Set<Quiz> quiz, TemaQuiz tema) {
-		super();
 		this.id = id;
 		this.quesito = quesito;
 		this.risposta1 = risposta1;
@@ -134,6 +133,15 @@ public class Domanda {
 	public void setTema(TemaQuiz tema) {
 		this.tema = tema;
 	}
+
+	@Override
+	public String toString() {
+		return "Domanda [id=" + id + ", quesito=" + quesito + ", risposta1=" + risposta1 + ", risposta2=" + risposta2
+				+ ", risposta3=" + risposta3 + ", risposta4=" + risposta4 + ", risposta_giusta=" + risposta_giusta
+				+ ", quiz=" + quiz + ", tema=" + tema + "]";
+	}
+	
+	
 
 
 }
