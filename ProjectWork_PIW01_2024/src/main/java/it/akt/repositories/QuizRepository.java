@@ -4,27 +4,51 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.data.repository.ListCrudRepository;
+import org.springframework.stereotype.Repository;
 
 import it.akt.models.Aula;
 import it.akt.models.Quiz;
 import it.akt.models.TemaQuiz;
 import it.akt.models.Domanda;
+import it.akt.models.Utente;
 
-//Creazione Repository Table Quiz
+/**
+ * Questa interfaccia rappresenta un repository per la classe Quiz.
+ * Estende l'interfaccia ListCrudRepository per fornire operazioni CRUD specifiche per i quiz.
+ *
+ * @param <Quiz> Il tipo di entità gestito dal repository (nel nostro caso, Quiz).
+ * @param <Long> Il tipo dell'ID dell'entità (nel nostro caso, Long).
+ * @author Samuele Romanelli
+ */
+@Repository
 public interface QuizRepository extends ListCrudRepository<Quiz, Long> {
 	
-	//Restituisce i Quiz associati alle Domande
-	Set<Quiz> findQuizbyDomande(Domanda domande);
+	/**
+	 * Restituisce un insieme di oggetti Quiz associati a una specifica domanda.
+	 *
+	 * @param domanda La domanda per cui cercare i quiz associati.
+	 */
+	Set<Quiz> findQuizbyDomande(Domanda domanda);
 	
-	//Restituisce i Quiz associati ad un Aula
-	Set<Quiz> findQuizbyAule(Aula aule);
+	/**
+	 * Restituisce un insieme di oggetti Quiz associati a una specifica aula.
+	 *
+	 * @param aula L'aula per cui cercare i quiz associati.
+	 */
+	Set<Quiz> findQuizbyAule(Aula aula);
 	
-	//Restituisce i Quiz associati ad un Utente
-	Set<Quiz> findQuizByUtenti(Utente utenti);
+	/**
+	 * Restituisce un insieme di oggetti Quiz associati a un utente specifico.
+	 *
+	 * @param utente L'utente per cui cercare i quiz associati.
+	 */
+	Set<Quiz> findQuizByUtenti(Utente utente);
 	
-	//Restituisce i Quiz associati a un Tema
+	/**
+	 * Restituisce una lista di oggetti Quiz associati a un tema specifico.
+	 *
+	 * @param temaQuiz Il tema per cui cercare i quiz associati.
+	 */
 	List<Quiz> findQuizByTemaQuiz(TemaQuiz temaQuiz);
-
-
 
 }
