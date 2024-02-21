@@ -94,4 +94,3 @@ CREATE TABLE IF NOT EXISTS utente_has_aula (
     FOREIGN KEY (utente_id) REFERENCES utente(id),
     FOREIGN KEY (aula_id) REFERENCES aula(id)
 );
-

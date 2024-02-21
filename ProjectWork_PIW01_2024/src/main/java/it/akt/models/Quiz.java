@@ -15,19 +15,28 @@ import jakarta.validation.constraints.NotEmpty;
 
 import java.time.LocalDate;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
+/**
+ * Rappresenta un quiz.
+ *
+ * @param id       L'ID del quiz.
+ * @param data     La data del quiz.
+ * @param temaQuiz Il tema del quiz.
+ * @param aule     Le aule associate al quiz.
+ * @param risultati I risultati ottenuti nel quiz.
+ * @param domande  Le domande del quiz.
+ * @param utenti   Gli utenti coinvolti nel quiz.
+ * @author Samuele Romanelli
+ */
 @Entity
 @Table(name = "quiz")
 public class Quiz {
 
-	//indica l'id del Quiz
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //indica la data del Quiz
     @Column(name = "data", nullable = false)
     @NotEmpty
     private LocalDate data;
@@ -35,7 +44,7 @@ public class Quiz {
     //Relazione molti a uno con TemaQuiz
     @ManyToOne
     @JoinColumn(name = "id_tema")
-    private TemaQuiz tema;
+    private TemaQuiz temaQuiz;
     
     //Relazione Molti a Molti tra Quiz e Aula
     @ManyToMany
@@ -48,7 +57,7 @@ public class Quiz {
     
     //Relazione Uno a Molti tra Quiz e Risultato
     @OneToMany(mappedBy = "quiz")
-    private List<Risultato> risultati;
+    private Set<Risultato> risultati = new HashSet<>();
     
     //Relazione Molti a Molti tra Quiz e Domanda
     @ManyToMany
@@ -68,76 +77,149 @@ public class Quiz {
     )
     private Set<Utente> utenti = new HashSet<>();
     
-    //costruttore
-    public Quiz(Long id, @NotEmpty LocalDate data, TemaQuiz tema, Set<Aula> aule, List<Risultato> risultati,
+    /**
+     * Costruisce un oggetto Quiz con i parametri specificati.
+     *
+     * @param id        L'ID del quiz.
+     * @param data      La data del quiz.
+     * @param temaQuiz  Il tema del quiz.
+     * @param aule      Le aule associate al quiz.
+     * @param risultati I risultati ottenuti nel quiz.
+     * @param domande   Le domande del quiz.
+     */
+    public Quiz(Long id, LocalDate data, TemaQuiz temaQuiz, Set<Aula> aule, Set<Risultato> risultati,
     		Set<Domanda> domande) {
     	this.id = id;
     	this.data = data;
-    	this.tema = tema;
+    	this.temaQuiz = temaQuiz;
     	this.aule = aule;
     	this.risultati = risultati;
     	this.domande = domande;
     }
     
+    /**
+     * Costruisce un oggetto Quiz senza parametri.
+     */
     public Quiz() {}
 
-	//getter and setter
+	//GETTER AND SETTER
+    
+    /**
+     * Imposta l'ID del quiz.
+     *
+     * @param id L'ID del quiz da impostare.
+     */
+    public void setId(Long id) {
+    	this.id = id;
+    }
 
+    /**
+     * Restituisce l'ID del quiz.
+     *
+     * @return L'ID del quiz.
+     */
 	public Long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public LocalDate getData() {
-		return data;
-	}
-
+	/**
+	 * Imposta la data del quiz.
+	 *
+	 * @param data La data del quiz da impostare.
+	 */
 	public void setData(LocalDate data) {
 		this.data = data;
 	}
 
-	public TemaQuiz getTema() {
-		return tema;
+	/**
+	 * Restituisce la data del quiz.
+	 *
+	 * @return La data del quiz.
+	 */
+	public LocalDate getData() {
+		return data;
 	}
 
-	public void setTema(TemaQuiz tema) {
-		this.tema = tema;
+	/**
+	 * Imposta il tema del quiz.
+	 *
+	 * @param temaQuiz Il tema del quiz da impostare.
+	 */
+	public void setTemaQuiz(TemaQuiz temaQuiz) {
+		this.temaQuiz = temaQuiz;
 	}
 
-	public Set<Aula> getAule() {
-		return aule;
+	/**
+	 * Restituisce il tema del quiz.
+	 *
+	 * @return Il tema del quiz.
+	 */
+	public TemaQuiz getTemaQuiz() {
+		return temaQuiz;
 	}
 
+	/**
+	 * Imposta l'insieme di aule associate al quiz.
+	 *
+	 * @param aule L'insieme di aule da impostare.
+	 */
 	public void setAule(Set<Aula> aule) {
 		this.aule = aule;
 	}
 
-	public List<Risultato> getRisultati() {
-		return risultati;
+	/**
+	 * Restituisce l'insieme di aule associate al quiz.
+	 *
+	 * @return L'insieme di aule associate al quiz.
+	 */
+	public Set<Aula> getAule() {
+		return aule;
 	}
 
-
-	public void setRisultati(List<Risultato> risultati) {
+	/**
+	 * Imposta l'insieme di risultati ottenuti nel quiz.
+	 *
+	 * @param risultati L'insieme di risultati da impostare.
+	 */
+	public void setRisultati(Set<Risultato> risultati) {
 		this.risultati = risultati;
 	}
 
-
-	public Set<Domanda> getDomande() {
-		return domande;
+	/**
+	 * Restituisce l'insieme di risultati ottenuti nel quiz.
+	 *
+	 * @return L'insieme di risultati ottenuti nel quiz.
+	 */
+	public Set<Risultato> getRisultati() {
+		return risultati;
 	}
 
-
+	/**
+	 * Imposta l'insieme di domande del quiz.
+	 *
+	 * @param domande L'insieme di domande da impostare.
+	 */
 	public void setDomande(Set<Domanda> domande) {
 		this.domande = domande;
 	}
 
-	//ToString
+	/**
+	 * Restituisce l'insieme di domande del quiz.
+	 *
+	 * @return L'insieme di domande del quiz.
+	 */
+	public Set<Domanda> getDomande() {
+		return domande;
+	}
+
+	/**
+	 * Restituisce una rappresentazione testuale dell'oggetto Quiz.
+	 *
+	 * @return Una stringa che contiene le informazioni sull'ID, la data, il tema, le aule, i risultati e le domande del quiz.
+	 */
 	@Override
 	public String toString() {
-		return "Quiz [id=" + id + ", data=" + data + ", temaQuiz=" + tema + ", aule=" + aule + ", risultati="
+		return "Quiz [id=" + id + ", data=" + data + ", temaQuiz=" + temaQuiz + ", aule=" + aule + ", risultati="
 				+ risultati + ", domande=" + domande + "]";
 	}
 	
