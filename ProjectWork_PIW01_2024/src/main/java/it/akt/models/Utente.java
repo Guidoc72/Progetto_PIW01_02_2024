@@ -41,10 +41,12 @@ public class Utente {
 	@Column(name = "telefono", nullable = true, length = 15)
 	private String telefono;
 	
+	@NotEmpty
 	@Column(name = "ruolo", nullable = false, length = 15)
 	private int ruolo;
 	
-	@Column(name = "abilitato")
+	@NotEmpty
+	@Column(name = "abilitato", nullable = false)
 	private boolean isEnabled;
 	
 	@ManyToMany(mappedBy = "utenti")	

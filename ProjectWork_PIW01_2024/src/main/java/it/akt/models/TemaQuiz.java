@@ -1,7 +1,6 @@
 package it.akt.models;
 
 import java.util.List;
-import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
