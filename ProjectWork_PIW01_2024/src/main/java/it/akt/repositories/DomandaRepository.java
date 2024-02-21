@@ -9,4 +9,6 @@ public interface DomandaRepository extends ListCrudRepository <Domanda, Long> {
 	
 	 public List<Domanda> findDomandaByTema(TemaQuiz tema);
 	 
+	 public Domanda findDomandaById (Long id);
+	 
 }

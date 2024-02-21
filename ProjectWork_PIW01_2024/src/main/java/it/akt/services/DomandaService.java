@@ -12,27 +12,55 @@ public class DomandaService {
 	public DomandaService (DomandaRepository domandaRepository) {
 		this.domandaRepository=domandaRepository;
 	}
-	
-	public void addDomanda (Domanda domanda) {
-		domandaRepository.save(domanda);		
+	/**
+	 * Aggiunge una domanda al database e ritorna come oggetto la domanda creata
+	 * @param domanda Domanda object
+	 * @return oggetto domanda
+	 */
+	public Domanda addDomanda (Domanda domanda) {
+		return domandaRepository.save(domanda);		
 	}
-	
+
+	/**
+	 * Elimina una domanda dal database 
+	 * @param id Long
+	 */	
 	public void deleteDomandaById (Long id) {
-		domandaRepository.deleteById(id);
+		Domanda domanda = domandaRepository.findDomandaById(id);		
+		domandaRepository.delete(domanda);
 	}
 	
-	public void updateDomanda (Domanda domanda) {
-		domandaRepository.save(domanda);
+	/**
+	 * Aggiorna una domanda dal database e ritorna come oggetto la domanda aggiornata
+	 * @param domanda Domanda object
+	 * @return oggetto domanda
+	 */
+	public Domanda updateDomanda (Domanda domanda) {
+		return domandaRepository.save(domanda);
 	}
 	
+	/**
+	 * Cerca una domanda tramite l'id dal database e ritorna come oggetto la domanda trovata
+	 * @param id Long 
+	 * @return oggetto domanda
+	 */
 	public Domanda findDomandaById (Long id) {
 		return domandaRepository.findById(id).orElseThrow();
 	}
 	
+	/**
+	 * Cerca le domande presenti nel database e ritorna la lista delle domande trovate 
+	 * @return lista domande
+	 */
 	public List<Domanda> findAllDomanda () {
 		return domandaRepository.findAll();
 	}
 	
+	/**
+	 * Cerca le domande presenti nel database in funione del tema e ritorna la lista delle domande trovate
+	 * @param  tema Tema
+	 * @return lista domande
+	 */
 	public List<Domanda>findDomandaByTema (Tema tema) {
 		return domandaRepository.findDomandaByTema(tema);
 	}
