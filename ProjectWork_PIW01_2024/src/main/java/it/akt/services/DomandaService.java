@@ -1,12 +1,12 @@
 package it.akt.services;
 
 import java.util.List;
-
-import javax.management.RuntimeErrorException;
+import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
 import it.akt.models.Domanda;
+import it.akt.models.TemaQuiz;
 import it.akt.repositories.DomandaRepository;
 @Service
 public class DomandaService {
@@ -31,7 +31,7 @@ public class DomandaService {
 	 */	
 	public void deleteDomandaById (Long id) {
 		Domanda domanda = domandaRepository.findDomandaById(id);		
-		domandaRepository.deleteById(domanda.getId());
+		domandaRepository.delete(domanda);
 	}
 	
 	/**
@@ -49,8 +49,7 @@ public class DomandaService {
 	 * @return oggetto domanda
 	 */
 	public Domanda findDomandaById (Long id) {
-		return domandaRepository.findById(id).orElseThrow(()->
-			new RuntimeException(String.format("Non esiste nessuna domanda con id : %d", id)));
+		return domandaRepository.findById(id).orElseThrow();
 	}
 	
 	/**
@@ -66,7 +65,7 @@ public class DomandaService {
 	 * @param  tema Tema
 	 * @return lista domande
 	 */
-	public List<Domanda>findDomandaByTema (Tema tema) {
+	public Set<Domanda>findDomandaByTema (TemaQuiz tema) {
 		return domandaRepository.findDomandaByTema(tema);
 	}
 
