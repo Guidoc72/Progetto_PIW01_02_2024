@@ -3,6 +3,7 @@ package it.akt.repositories;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -28,6 +29,7 @@ public interface QuizRepository extends ListCrudRepository<Quiz, Long> {
 	 *
 	 * @param domanda La domanda per cui cercare i quiz associati.
 	 */
+	@Query("SELECT q FROM quiz q WHERE :domanda MEMBER OF q.domande")
 	Set<Quiz> findQuizbyDomande(Domanda domanda);
 	
 	/**
@@ -35,6 +37,7 @@ public interface QuizRepository extends ListCrudRepository<Quiz, Long> {
 	 *
 	 * @param aula L'aula per cui cercare i quiz associati.
 	 */
+	@Query("SELECT q FROM quiz q WHERE :aula MEMBER OF q.aule")
 	Set<Quiz> findQuizbyAule(Aula aula);
 	
 	/**
@@ -42,6 +45,7 @@ public interface QuizRepository extends ListCrudRepository<Quiz, Long> {
 	 *
 	 * @param utente L'utente per cui cercare i quiz associati.
 	 */
+	@Query("SELECT q FROM quiz q WHERE :utente MEMBER OF q.utenti")
 	Set<Quiz> findQuizByUtenti(Utente utente);
 	
 	/**
@@ -49,5 +53,6 @@ public interface QuizRepository extends ListCrudRepository<Quiz, Long> {
 	 *
 	 * @param temaQuiz Il tema per cui cercare i quiz associati.
 	 */
+	@Query("SELECT q FROM quiz q WHERE :tema MEMBER OF q.temi")
 	List<Quiz> findQuizByTemaQuiz(TemaQuiz temaQuiz);
 }
