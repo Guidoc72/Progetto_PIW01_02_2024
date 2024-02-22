@@ -1,10 +1,14 @@
 package it.akt.services;
 
 import java.util.List;
+import java.util.Set;
+
+import org.springframework.stereotype.Service;
 
 import it.akt.models.Domanda;
+import it.akt.models.TemaQuiz;
 import it.akt.repositories.DomandaRepository;
-
+@Service
 public class DomandaService {
 	
 	private DomandaRepository domandaRepository;
@@ -61,7 +65,7 @@ public class DomandaService {
 	 * @param  tema Tema
 	 * @return lista domande
 	 */
-	public List<Domanda>findDomandaByTema (Tema tema) {
+	public Set<Domanda>findDomandaByTema (TemaQuiz tema) {
 		return domandaRepository.findDomandaByTema(tema);
 	}
 
