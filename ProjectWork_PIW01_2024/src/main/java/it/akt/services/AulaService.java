@@ -28,7 +28,7 @@ public class AulaService {
 	}
 	
 /** 
-Aggiunge un'aula al database e restituisce un oggetto della classe Aula. 
+Aggiunge un'aula al database. 
 @param aula Aula object
 @return aula Aula object
 */
@@ -37,7 +37,7 @@ Aggiunge un'aula al database e restituisce un oggetto della classe Aula.
 	}
 
 /** 
-Modifica un'aula del database e restituisce l'oggetto modificato.
+Modifica un'aula del database.
 @param aula Aula object
 @return aula Aula object
 */	
