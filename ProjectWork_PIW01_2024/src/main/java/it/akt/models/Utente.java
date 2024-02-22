@@ -24,12 +24,14 @@ public class Utente {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Pattern(regexp = "[a-zA-Z\\s]{3,30}", message = "La stringa deve contenere almeno 3 caratteri diversi da numeri e simboli")
+	@Pattern(regexp = "^(?<!\\s)[a-zA-Z]{3, 30}?$", 
+			message = "Questo campo deve contenere almeno 3 caratteri")
 	@NotEmpty(message = "Il campo non può essere vuto")	
 	@Column(name="nome", nullable = false, length = 40)
 	private String nome;
 	
-	@Pattern(regexp = "[a-zA-Z\\s]{3,30}", message = "La stringa deve contenere almeno 3 caratteri diversi da numeri e simboli")
+	@Pattern(regexp = "^(?<!\\s)[a-zA-Z]{3, 30}?$", 
+			message = "Questo campo deve contenere almeno 3 caratteri")
 	@NotEmpty(message = "Il campo non può essere vuto")	
 	@Column(name="cognome", nullable = false, length = 40)
 	private String cognome;
@@ -37,6 +39,11 @@ public class Utente {
 	@Email //controlla che il formato sia Email valido
 	@Column(name = "email", nullable = false, length = 40)
 	private String email;
+	
+	@Pattern(regexp = "^[a-zA-Z][0-9]{8, }$", 
+			message = "La password deve contenere almeno 8 caratteri tra cui una maiuscola e un numero")
+	@Column(name = "password", nullable = false)
+	private String password;
 	
 	@Column(name = "telefono", nullable = true, length = 15)
 	private String telefono;
@@ -62,12 +69,13 @@ public class Utente {
 	public Utente() {}
 
 	//costruttore con Set
-	public Utente(Long id, String nome, String cognome, String email, 
+	public Utente(Long id, String nome, String cognome, String email, String password,
 			String telefono, int ruolo, boolean isEnabled, Set<Quiz> quiz, Set<Aula> aule) {
 		this.id = id;
 		this.nome = nome;
 		this.cognome = cognome;
 		this.email = email;
+		this.password = password;
 		this.telefono = telefono;
 		this.ruolo = ruolo;
 		this.isEnabled = isEnabled;
@@ -76,12 +84,13 @@ public class Utente {
 	}
 	
 	//costruttore senza Set
-	public Utente(Long id, String nome, String cognome, String email, 
+	public Utente(Long id, String nome, String cognome, String email, String password,
 			String telefono, int ruolo, boolean isEnabled) {
 		this.id = id;
 		this.nome = nome;
 		this.cognome = cognome;
 		this.email = email;
+		this.password = password;
 		this.telefono = telefono;
 		this.ruolo = ruolo;
 		this.isEnabled = isEnabled;
@@ -117,6 +126,14 @@ public class Utente {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public String getTelefono() {
