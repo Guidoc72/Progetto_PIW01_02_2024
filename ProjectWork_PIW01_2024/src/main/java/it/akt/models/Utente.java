@@ -12,6 +12,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
@@ -30,7 +31,7 @@ public class Utente {
 	private String nome;
 	
 	@Pattern(regexp = "[a-zA-Z\\s]{3,30}", message = "La stringa deve contenere almeno 3 caratteri diversi da numeri e simboli")
-	@NotEmpty(message = "Il campo non può essere vuto")	
+	@NotEmpty(message = "Il campo non può essere vuoto")	
 	@Column(name="cognome", nullable = false, length = 40)
 	private String cognome;
 	
@@ -47,6 +48,12 @@ public class Utente {
 	@Column(name = "abilitato")
 	private boolean isEnabled;
 	
+	@Column(name = "password")
+	private String password;
+	
+	@Transient
+	private String codiceDocente;
+	
 	@ManyToMany(mappedBy = "utenti")	
 	Set<Quiz> quiz = new HashSet<>();
 
@@ -61,7 +68,7 @@ public class Utente {
 
 	//costruttore con Set
 	public Utente(Long id, String nome, String cognome, String email, 
-			String telefono, int ruolo, boolean isEnabled, Set<Quiz> quiz, Set<Aula> aule) {
+			String telefono, int ruolo, boolean isEnabled, String password, String codiceDocente, Set<Quiz> quiz, Set<Aula> aule) {
 		this.id = id;
 		this.nome = nome;
 		this.cognome = cognome;
@@ -69,13 +76,15 @@ public class Utente {
 		this.telefono = telefono;
 		this.ruolo = ruolo;
 		this.isEnabled = isEnabled;
+		this.password = password;
+		this.codiceDocente= codiceDocente;
 		this.quiz = quiz;
 		this.aule = aule;
 	}
 	
 	//costruttore senza Set
 	public Utente(Long id, String nome, String cognome, String email, 
-			String telefono, int ruolo, boolean isEnabled) {
+			String telefono, int ruolo, boolean isEnabled, String password, String codiceDocente) {
 		this.id = id;
 		this.nome = nome;
 		this.cognome = cognome;
@@ -83,6 +92,8 @@ public class Utente {
 		this.telefono = telefono;
 		this.ruolo = ruolo;
 		this.isEnabled = isEnabled;
+		this.password = password;
+		this.codiceDocente = codiceDocente;
 	}
 
 	public Long getId() {
@@ -140,6 +151,21 @@ public class Utente {
 	public void setEnabled(boolean isEnabled) {
 		this.isEnabled = isEnabled;
 	}
+	
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	public String getCodiceDocente() {
+		return codiceDocente;
+	}
+	
+	public void setCodiceDocente(String codiceDocente) {
+		this.codiceDocente = codiceDocente;
+	}
 
 	public Set<Quiz> getQuiz() {
 		return quiz;
@@ -159,7 +185,7 @@ public class Utente {
 
 	@Override
 	public String toString() {
-		return "Utente [id=" + id + ", nome=" + nome + ", cognome=" + cognome + ", email=" + email + ", telefono="
+		return "Utente [id=" + id + ", nome=" + nome + ", codiceDocente=" + codiceDocente + ", cognome=" + cognome + ", email=" + email + ", telefono="
 				+ telefono + ", ruolo=" + ruolo + ", isEnabled=" + isEnabled + "]";
 	}
 

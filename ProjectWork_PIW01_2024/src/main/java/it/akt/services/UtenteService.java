@@ -49,6 +49,15 @@ public class UtenteService {
 	}
 	
 	/**
+	 * Recupera un utente cercandolo per Email. 
+	 * @param email String
+	 * @return Utente object
+	 */
+	public Utente getUtenteByEmail (String email) {
+		return utenteRepository.findByEmail(email);
+	}
+	
+	/**
 	 * Esegue l'aggiornamento di un oggetto "Utente". 
 	 * Metodo {@code void} che non ritorna nulla
 	 * @param utente Utente
