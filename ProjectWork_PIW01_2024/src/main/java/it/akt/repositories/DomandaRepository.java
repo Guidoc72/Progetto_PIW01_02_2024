@@ -11,7 +11,7 @@ import it.akt.models.TemaQuiz;
 @Repository
 public interface DomandaRepository extends ListCrudRepository <Domanda, Long> {
 	
-	@Query("SELECT d FROM Domande d JOIN d.tema t WHERE t.nome = : tema")
+	@Query("SELECT d FROM Domanda d JOIN d.tema t WHERE t.nome = : tema")
 	 public Set<Domanda> findDomandaByTema(TemaQuiz tema);
 	 
 	 public Domanda findDomandaById (Long id);

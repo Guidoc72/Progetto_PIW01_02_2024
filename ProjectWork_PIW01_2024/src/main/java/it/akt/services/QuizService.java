@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import it.akt.models.Quiz;
 import it.akt.models.Risultato;
 import it.akt.models.TemaQuiz;
-import it.akt.models.Utente;
 import it.akt.models.Domanda;
 import it.akt.models.Aula;
 import it.akt.repositories.QuizRepository;
@@ -152,70 +151,6 @@ public class QuizService {
         	throw new Exception("Errore: I campi non possono essere vuoti!");
         }
         return quizRepository.save(quizEsistente);    
-    }
-    
-    /**
-     * Restituisce un insieme di oggetti Quiz associati a una specifica domanda.
-     *
-     * @param domanda La domanda per cui cercare i quiz associati.
-     * @return L'insieme di quiz associati alla domanda.
-     * @throws Exception Se non ci sono quiz associati alla domanda.
-     */
-    public Set<Quiz> getQuizByDomande(Domanda domanda) throws Exception {
-    	try {
-            return quizRepository.findQuizbyDomande(domanda);
-        } catch (Exception e) {
-            System.out.println("Errore: Nessun Quiz è associato alla domanda!");
-            throw new Exception("Errore: Nessun Quiz è associato alla domanda!");
-        }
-    }
-
-    /**
-     * Restituisce un insieme di oggetti Quiz associati a una specifica aula.
-     *
-     * @param aula L'aula per cui cercare i quiz associati.
-     * @return L'insieme di quiz associati all'aula.
-     * @throws Exception Se non ci sono quiz associati all'aula.
-     */
-    public Set<Quiz> getQuizByAule(Aula aula) throws Exception {
-    	try {
-    		return quizRepository.findQuizbyAule(aula);
-        } catch (Exception e) {
-            System.out.println("Errore: Nessun Quiz è associato all'Aula!");
-            throw new Exception("Errore: Nessun Quiz è associato all'Aula!");
-        }
-    }
-    
-    /**
-     * Restituisce un insieme di oggetti Quiz associati a un utente specifico.
-     *
-     * @param utente L'utente per cui cercare i quiz associati.
-     * @return L'insieme di quiz associati all'utente.
-     * @throws Exception Se non ci sono quiz associati all'utente.
-     */
-    public Set<Quiz> getQuizByUtente(Utente utente) throws Exception {
-    	try {
-    		return quizRepository.findQuizByUtenti(utente);
-        } catch (Exception e) {
-            System.out.println("Errore: Nessun Quiz è associato all'utente!");
-            throw new Exception("Errore: Nessun Quiz è associato all'utente!");
-        }
-    }
-    
-    /**
-     * Restituisce una lista di oggetti Quiz associati a un tema specifico.
-     *
-     * @param temaQuiz Il tema per cui cercare i quiz associati.
-     * @return La lista di quiz associati al tema.
-     * @throws Exception Se non ci sono quiz associati al tema.
-     */
-    public List<Quiz> getQuizByTema(TemaQuiz temaQuiz) throws Exception {
-    	try {
-    		return quizRepository.findQuizByTemaQuiz(temaQuiz);
-        } catch (Exception e) {
-            System.out.println("Errore: Nessun Quiz è associato al Tema!");
-            throw new Exception("Errore: Nessun Quiz è associato al Tema!");
-        }
     }
     
 }

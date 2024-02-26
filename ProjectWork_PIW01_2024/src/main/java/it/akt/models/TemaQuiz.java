@@ -37,13 +37,13 @@ public class TemaQuiz {
 /**
  * Relazione uno a molti con gli oggetti Quiz associati a questo tema.
  */
-    @OneToMany
+    @OneToMany(mappedBy = "temaQuiz")
     private Set<Quiz> quiz;
 
 /**
  * Relazione uno-a-molti con le domande associate a questo tema.
  */
-    @OneToMany
+    @OneToMany(mappedBy = "tema")
     private Set<Domanda> domande;
     
 /**
