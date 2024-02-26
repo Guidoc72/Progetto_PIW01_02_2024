@@ -20,7 +20,7 @@ public interface AulaRepository extends ListCrudRepository<Aula, Long> {
 	public List<Utente> getAllUtentiInAula(Long aulaId); 
 
 /**
- * Restituisce della classe tramite il suo id
+ * Restituisce un utente della classe tramite il suo id
  * @param id aula Aula object
  * @param id utente Utente object
  * @return utente Utente object
