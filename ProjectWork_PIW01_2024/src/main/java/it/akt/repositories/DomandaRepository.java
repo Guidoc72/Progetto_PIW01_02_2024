@@ -17,3 +17,4 @@ public interface DomandaRepository extends ListCrudRepository <Domanda, Long> {
 	 public Domanda findDomandaById (Long id);
 	 
 }
+34

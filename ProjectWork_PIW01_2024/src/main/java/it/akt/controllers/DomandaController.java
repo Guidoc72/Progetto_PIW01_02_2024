@@ -1,5 +1,13 @@
 package it.akt.controllers;
 
-public class DomandaController {
+import org.springframework.stereotype.Controller;
 
+@Controller
+public class DomandaController {
+@RequestMapping("/domande")
+	
+	
+	
+	
+	
 }
