@@ -9,6 +9,8 @@ public class AulaController {
 
 	private AulaService aulaService;
 	
+	@GetMapping
+	
 	
 	
 }//class
