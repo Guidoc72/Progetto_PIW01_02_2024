@@ -72,11 +72,11 @@ Modifica un'aula del database.
 	}
 	
 /**
- * Restituisce la lista di studenti dell'aula nel database
+ * Restituisce la lista di studenti della tabella aula
  * @return Lista utente Utente object
  */
-	public List<Utente> getAllUtentiInAula() {
-		return aulaRepository.findAll();
+	public List<Utente> getAllUtentiInAula(Long id) {
+		return aulaRepository.getAllUtentiInAula(id);
 	}
 	
 /**
