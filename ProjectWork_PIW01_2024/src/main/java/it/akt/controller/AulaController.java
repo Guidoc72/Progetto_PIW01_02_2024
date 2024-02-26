@@ -8,9 +8,7 @@ import it.akt.services.AulaService;
 public class AulaController {
 
 	private AulaService aulaService;
-	
-	@GetMapping
-	
+		
 	
 	
 }//class
