@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -28,7 +29,6 @@ public class DomandaController {
 	@GetMapping("/newdomanda")
 	public String newdomanda (Model model){
 		List<TemaQuiz> temaList = temaQuizService.getAllTemi();		
-		
 		model.addAttribute("domanda", new Domanda());
 		model.addAttribute("temi", temaList);
 		return "newdomanda";
@@ -36,17 +36,15 @@ public class DomandaController {
 	
 	@PostMapping("/domandaform")
 	public String newdomanda (@RequestParam ("temaquiz")String temaquiz, @ModelAttribute Domanda domanda) {
-		
-		Long temaId = Long.parseLong(temaquiz);
-		
-		TemaQuiz tema = temaQuizService.getTemaById(temaId);
-		
-		domanda.setTema(tema);
-
+		domanda.setTema(temaQuizService.findTemaById(Long.parseLong(temaquiz)));
 		domandaService.addDomanda(domanda);
-
-		return "newdomanda";
+		return "redirect:/listatemi";
 	}
 	
+	@GetMapping("/listadomande/{id}")
+	public String listaDomande (@PathVariable(name="id") Long id, Model model) {
+		model.addAttribute("listadomande",domandaService.findDomandaByTemaId(id));
+		return "listadomande";
+	}
 
 }
