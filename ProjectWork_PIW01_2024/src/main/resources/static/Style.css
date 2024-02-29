@@ -1,0 +1,75 @@
+@charset "ISO-8859-1";
+
+
+body {
+	background-color: white;
+	color: black;
+	font-family: Arial, sans-serif;
+}
+
+.table table-striped table-hover {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	padding: 50px;
+}
+
+.btn.btn-primary1:hover {
+	background-color: white;
+	border: blue;
+	padding: 10px 20px;
+	border-radius: 5px;
+	background-color: #2980b9;
+	color: #ffff00; /* Nuovo colore del testo al passaggio del cursore */
+	 cursor: pointer;
+}
+
+.btn.btn-primary2:hover {
+	background-color: white;
+	border: blue;
+	padding: 10px 20px;
+	border-radius: 5px;
+	background-color: #2980b9;
+	color: #ffff00; /* Nuovo colore del testo al passaggio del cursore */
+}
+
+.btn.btn-primary3:hover {
+	background-color: white;
+	border: blue;
+	padding: 10px 20px;
+	border: none;
+	background-color: #2980b9;
+	color: #ffff00; /* Nuovo colore del testo al passaggio del cursore */
+}
+
+.btn.btn-primary4:hover{
+	background-color: white;
+	border: blue;
+	padding: 10px 20px;
+	border: none;
+	background-color: #2980b9;
+	color: #ffff00; /* Nuovo colore del testo al passaggio del cursore */
+}
+
+.btn.btn-primary5:hover {
+	background-color: white;
+	border: blue;
+	padding: 10px 20px;
+	border: none;
+	background-color: #2980b9;
+	color: #ffff00; /* Nuovo colore del testo al passaggio del cursore */
+}
+
+.btn.btn-primary6:hover {
+	background-color: white;
+	border: blue;
+	padding: 10px 20px;
+	border: none;
+	background-color: #2980b9;
+	color: #ffff00; /* Nuovo colore del testo al passaggio del cursore */
+}
+
+table.table th, table.table td {
+	padding: 20px;
+	padding-left: 50px;
+}
