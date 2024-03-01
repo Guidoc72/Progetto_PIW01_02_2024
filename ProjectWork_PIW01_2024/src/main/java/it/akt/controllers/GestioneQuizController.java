@@ -157,6 +157,7 @@ public class GestioneQuizController {
 	        return "redirect:/gestionequiz/add/assegnaaule?idQuiz="+nuovoQuiz.getId();
 	        
 	        }catch (Exception e) {
+		    System.out.println("Non ci sono abbastanza domande per generare il quiz!");
 	        model.addAttribute("messaggio", "false");
 	        return "successo";
 	        }
