@@ -1,8 +1,7 @@
 package it.akt.services;
 
 import java.util.List;
-
-import javax.management.loading.ClassLoaderRepository;
+import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
@@ -20,72 +19,91 @@ public class AulaService {
 	private UtenteRepository utenteRepository;
 	private QuizRepository quizRepository;
 	
-	public AulaService(AulaRepository aulaRepository, UtenteRepository utenteRepository,
+	public AulaService(AulaRepository aulaRepository, 
+			UtenteRepository utenteRepository,
 			QuizRepository quizRepository) {
 		this.aulaRepository = aulaRepository;
 		this.utenteRepository = utenteRepository;
 		this.quizRepository = quizRepository;
 	}
 	
-/** 
-Aggiunge un'aula al database. 
-@param aula Aula object
-@return aula Aula object
-*/
+/**
+ * Aggiunge un oggetto aula al db.
+ * @param	aula Aula object
+ * @return  aula Aula object
+ */
 	public Aula addAula(Aula aula) {
 		return aulaRepository.save(aula);
 	}
 
-/** 
-Modifica un'aula del database.
-@param aula Aula object
-@return aula Aula object
-*/	
+/**
+ * Aggiorna l'oggetto aula nel db.
+ * @param	aula Aula object
+ * @return  aula Aula object
+ */
 	public Aula updateAula(Aula aula) {
 		return aulaRepository.save(aula);
 	}
 
 /**
-* Trova un'aula del database tramite il suo id.
-* @param Long id
-* @return aula Aula object
-*/
+ * Trova e restituisce un oggetto aula nel db tramite l'id.
+ * @param	id aula Aula
+ * @return  aula Aula object
+ * @throws  RuntimeException se non trova nessun oggetto con l'id richiesto.
+ */
 	public Aula getAulaById(Long id) {
 		return aulaRepository.findById(id).orElseThrow(() -> 
-			new RuntimeException(String.format("Non esiste nessuna classe con id: %d",id)));
+			new RuntimeException(String.format("Non esiste nessuna classe con id: %d", id)));
 	}
-
+	
+	
 /**
- * Trova tutte le aule del database.
- * @return List aula object
+ * Trova e restituisce tutti gli oggetti aula nel db.
+ * @param	Set Aula 
+ * @return  Set Aula 
  */
 	public List<Aula> getAllAule() {
 		return aulaRepository.findAll();
 	}
 
 /**
- * Elimina un'aula dal database tramite il suo id.
- * @param id aula object
+ * Elimina un oggetto aula dal db tramite il suo id.
+ * @param	id aula Aula
+ * @return 	(void)
  */
 	public void deleteAulaById(Long id) {
 	      aulaRepository.deleteById(id);
 	}
 	
 /**
- * Restituisce la lista di studenti dell'aula nel database
- * @return Lista utente Utente object
+ * Restituisce la lista di oggetti studente di una determinata tabella del db.
+ * @param	id aula Aula
+ * @return  List Utente
  */
-	public List<Utente> getAllUtentiInAula() {
-		return aulaRepository.findAll();
+	public List<Utente> findUtenteByAulaId(Long id) {
+		if (id == null) {
+			return utenteRepository.findByAuleIdIsNull();
+		} else {
+			return utenteRepository.findByAuleId(id);
+		}
 	}
 	
 /**
- * Restituisce un utente tramite il suo id.
- * @param id aula object
- * @param id utente object
- * @return utente Utente object
+ * Restituisce la lista di oggetti quiz di una determinata tabella del db.
+ * @param	id aula Aula
+ * @return  Set Quiz 
  */
-	public Utente getUtenteByIdInAula(Long aula_id, Long utente_id) {
-		 return aulaRepository.getUtenteByIdInAula(aula_id, utente_id);
-	 }
+	public Set<Quiz> findQuizByAulaId(Long id) {
+		return quizRepository.findByAuleId(id);
+	}
+	
+/**
+ * Restituisce un oggetto Utente in 
+ * @param id
+ * @return
+ */
+	public Aula findByUtentiId(Long id) {
+		return aulaRepository.findByUtentiId(id);
+	}
+		
 }

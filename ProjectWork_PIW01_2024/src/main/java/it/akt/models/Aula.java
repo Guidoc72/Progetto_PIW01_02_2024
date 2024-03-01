@@ -24,24 +24,32 @@ public class Aula {
 	@Column(name = "nome", nullable = false)
 	private String nome;
 	
-	//vedi classe Quiz
+	/**
+	 * Relazione n:n con classe Quiz: quiz_has_aula
+	 */
 	@ManyToMany(mappedBy = "aule")
 	private Set<Quiz> quiz = new HashSet<>();
 	
-	//vedi classe Utente
+	/**
+	 * Relazione n:n con classe Utente: utente_has_aula
+	 */
 	@ManyToMany(mappedBy = "aule")
 	private Set<Utente> utenti = new HashSet<>();
 	
 	public Aula() {
 	}
 
-	// costruttore senza Set
+	/**
+	 * Costruttore parametrico senza Set
+	 */
 	public Aula(Long id, String nome) {
 		this.id = id;
 		this.nome = nome;
 	}
 
-	// costruttore con Set
+	/**
+	 * Costruttore parametri con Set
+	 */
 	public Aula(Long id, String nome, Set<Quiz> quiz, Set<Utente> utenti) {
 		this.id = id;
 		this.nome = nome;
