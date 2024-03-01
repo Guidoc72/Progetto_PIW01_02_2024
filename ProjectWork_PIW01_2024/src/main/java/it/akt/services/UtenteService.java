@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import it.akt.models.Aula;
 import it.akt.models.Utente;
 import it.akt.repositories.UtenteRepository;
 
@@ -80,4 +81,19 @@ public class UtenteService {
 	public List<Utente> findAllByRuolo(int ruolo){
 		return utenteRepository.findAllByRuolo(ruolo);
 	}
+	
+	/**
+	 * Assegna un utente ad una tabella aula.
+	 * @param 	id utente Utente
+	 * @param 	aula Aula object
+	 * @return 	utente Utente object
+	 */
+	public Utente assegnaAula(Long id, Aula aula) {
+		Utente utente = utenteRepository.findById(id).orElseThrow(() -> 
+			new RuntimeException(String.format("Non esiste nessuna classe con id: %d", id)));
+		utente.getAule().add(aula);
+		System.out.println(utente.getAule().size());
+		return utenteRepository.save(utente);
+	}
+	
 }
