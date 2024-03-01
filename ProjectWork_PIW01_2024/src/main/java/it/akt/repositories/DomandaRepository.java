@@ -22,6 +22,6 @@ public interface DomandaRepository extends ListCrudRepository <Domanda, Long> {
 	 public Domanda findDomandaById (Long id);	 
 	 
 //	 @Query("SELECT d FROM Domanda d JOIN quiz q on d.id = q.id WHERE d.id = :id")
-	 public Optional<List<Domanda>> findAllByQuizId(Long id);
+	 public Set<Domanda> findAllByQuizId(Long id);
 	 
 }
