@@ -11,7 +11,9 @@ import java.util.List;
 public class RisultatoService {
     private RisultatoRepository risultatoRepository;
 
-
+    RisultatoService (RisultatoRepository risultatoRepository) {
+        this.risultatoRepository = risultatoRepository;
+    }
 
     public void addRisultato(Risultato risultato) {
         risultatoRepository.save(risultato);
@@ -21,8 +23,10 @@ public class RisultatoService {
         risultatoRepository.deleteById(id);
     }
 
-    public List<Risultato> findAllByQuiz(Long id) {
-        return risultatoRepository.findByQuizId(id).orElseThrow(() ->
+    public List<Risultato> findAllByQuizId(Long id, Long aula_id) {
+
+
+        return risultatoRepository.findAllByQuizIdAndAulaId(id, aula_id).orElseThrow(() ->
                 new RuntimeException(String.format("Non ci sta nessuna risposta per il Quiz con id %d", id) ));
 
     }
@@ -33,8 +37,7 @@ public class RisultatoService {
     }
 
     public Risultato findByUtenteIdAndQuizId(Long utente_id, Long quiz_id) {
-        return risultatoRepository.findByUtenteIdAndQuizId(utente_id, quiz_id).orElseThrow(() ->
-                new RuntimeException(String.format("Questo utente con id %d non ha una risposta al quiz con id : %d", utente_id, quiz_id) ));
+        return risultatoRepository.findByUtenteIdAndQuizId(utente_id, quiz_id).orElse( null);
     }
 
 }

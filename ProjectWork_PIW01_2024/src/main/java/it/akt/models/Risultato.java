@@ -63,25 +63,6 @@ public class Risultato {
     @JoinColumn(name = "utente_id")
     private Utente utente;
 
-    public Risultato(Long id, int punteggio, int risposta1,
-                     int risposta2, int risposta3, int risposta4, int risposta5,
-                     int risposta6, int risposta7, int risposta8, int risposta9,
-                     int risposta10, Quiz quiz, Utente utente) {
-        this.id = id;
-        this.punteggio = punteggio;
-        this.risposta1 = risposta1;
-        this.risposta2 = risposta2;
-        this.risposta3 = risposta3;
-        this.risposta4 = risposta4;
-        this.risposta5 = risposta5;
-        this.risposta6 = risposta6;
-        this.risposta7 = risposta7;
-        this.risposta8 = risposta8;
-        this.risposta9 = risposta9;
-        this.risposta10 = risposta10;
-        this.quiz = quiz;
-        this.utente = utente;
-    }
 
     public Risultato() {
 
@@ -95,6 +76,21 @@ public class Risultato {
         this.id = id;
     }
 
+    public int getRisposta(int i) {
+        return switch (i) {
+            case 0 -> risposta1;
+            case 1 -> risposta2;
+            case 2 -> risposta3;
+            case 3 -> risposta4;
+            case 4 -> risposta5;
+            case 5 -> risposta6;
+            case 6 -> risposta7;
+            case 7 -> risposta8;
+            case 8 -> risposta9;
+            case 9 -> risposta10;
+            default -> throw new IllegalArgumentException("Invalid value: " + i);
+        };
+    }
     public int getPunteggio() {
         return punteggio;
     }
