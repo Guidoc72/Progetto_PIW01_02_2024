@@ -42,7 +42,7 @@ public class TemaController {
 	
 	@GetMapping("/eliminatema/{id}")
 	public String eliminaTema (@PathVariable(name="id") Long id, Model model) {
-		TemaQuiz tema = temaQuizService.findTemaById(id);
+		TemaQuiz tema = temaQuizService.getTemaById(id);
 		if (tema.getDomande().isEmpty()) {
 			temaQuizService.deleteTemaById(id);
 			return "redirect:/listatemi";
