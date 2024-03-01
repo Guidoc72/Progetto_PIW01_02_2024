@@ -36,7 +36,7 @@ public class DomandaController {
 	
 	@PostMapping("/domandaform")
 	public String newdomanda (@RequestParam ("temaquiz")String temaquiz, @ModelAttribute Domanda domanda) {
-		domanda.setTema(temaQuizService.findTemaById(Long.parseLong(temaquiz)));
+		domanda.setTema(temaQuizService.getTemaById(Long.parseLong(temaquiz)));
 		domandaService.addDomanda(domanda);
 		return "redirect:/listatemi";
 	}
