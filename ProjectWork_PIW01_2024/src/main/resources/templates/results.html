@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+        }
+        .da-card {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0px 0px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .info {
+            font-size: 14px;
+            color: #777;
+        }
+        .response-field {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f5f5f5;
+        }
+        .red{
+            color: red;
+        }
+        .green {
+            color: greenyellow;
+        }
+    </style>
+    <script th:inline="javascript">
+
+    </script>
+
+
+
+</head>
+    <body>
+
+        <div class="d-flex flex-row flex-wrap justify-content-center" >
+            <div th:each="risultato : ${ListaRisultati}"  class="da-card" style=" width: 45vh;" >
+                <h1 class="title" th:text="${risultato.getUtente().getNome()} + ' ' + ${risultato.getUtente().getCognome()}"></h1>
+                <p class="info" th:text="${risultato.getPunteggio()} * 10 + '%'  "></p>
+                <div class="response-field" th:each="domanda, stat: ${ListaDomande} ">
+                    <p th:text="${ListaDomande[stat.index].getQuesito()}"></p>
+                    <p th:text="${ListaDomande[stat.index].getRisposta(ListaDomande[stat.index].getRisposta_giusta())}" class="green"> </p>
+                    <p th:if="${ListaDomande[stat.index].getRisposta_giusta() != risultato.getRisposta(stat.index)}" th:text="${ListaDomande[stat.index].getRisposta(risultato.getRisposta(stat.index))}" class="red"></p>
+                </div>
+            </div>
+
+    </body>
+</html>
