@@ -1,4 +1,4 @@
-package it.akt.controller;
+package it.akt.controllers;
 
 
 import it.akt.models.Domanda;
