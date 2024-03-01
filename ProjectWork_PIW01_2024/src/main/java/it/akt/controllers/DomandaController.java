@@ -51,11 +51,12 @@ public class DomandaController {
 	public String eliminaDomanda (@PathVariable(name="id") Long id, Model model) {
 		Domanda domanda = domandaService.findDomandaById(id);
 		if(domanda.getQuiz().isEmpty()) {
-			domandaService.deleteDomandaById(id);			
+			domandaService.deleteDomandaById(id);
+			return "redirect:/listadomande/"+id;
 		} else {
 			model.addAttribute("s_alert", true);		
 		}			
-		return "redirect:/listatemi";
+		return "listadomande";
 	}	
 		
 }
