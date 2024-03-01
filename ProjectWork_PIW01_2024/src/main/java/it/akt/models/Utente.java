@@ -3,6 +3,8 @@ package it.akt.models;
 import java.util.HashSet;
 import java.util.Set;
 
+
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,7 +28,7 @@ public class Utente {
 	private Long id;
 	
 	@Pattern(regexp = "[a-zA-Z\\s]{3,30}", message = "La stringa deve contenere almeno 3 caratteri diversi da numeri e simboli")
-	@NotEmpty(message = "Il campo non può essere vuto")	
+	@NotEmpty(message = "Il campo non può essere vuoto")	
 	@Column(name="nome", nullable = false, length = 40)
 	private String nome;
 	
@@ -35,7 +37,7 @@ public class Utente {
 	@Column(name="cognome", nullable = false, length = 40)
 	private String cognome;
 	
-	@Email //controlla che il formato sia Email valido
+	@Email(message = "L'indirizzo email non è valido", regexp = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$")
 	@Column(name = "email", nullable = false, length = 40)
 	private String email;
 	
@@ -48,8 +50,12 @@ public class Utente {
 	@Column(name = "abilitato")
 	private boolean isEnabled;
 	
+	@NotEmpty(message = "Il campo non può essere vuoto")
 	@Column(name = "password")
 	private String password;
+	
+	@Column(name = "password_token")
+	private String passwordToken;
 	
 	@Transient
 	private String codiceDocente;
@@ -68,7 +74,7 @@ public class Utente {
 
 	//costruttore con Set
 	public Utente(Long id, String nome, String cognome, String email, 
-			String telefono, int ruolo, boolean isEnabled, String password, String codiceDocente, Set<Quiz> quiz, Set<Aula> aule) {
+			String telefono, int ruolo, boolean isEnabled, String password, String passwordToken, String codiceDocente, Set<Quiz> quiz, Set<Aula> aule) {
 		this.id = id;
 		this.nome = nome;
 		this.cognome = cognome;
@@ -77,6 +83,7 @@ public class Utente {
 		this.ruolo = ruolo;
 		this.isEnabled = isEnabled;
 		this.password = password;
+		this.passwordToken = passwordToken;
 		this.codiceDocente= codiceDocente;
 		this.quiz = quiz;
 		this.aule = aule;
@@ -84,7 +91,7 @@ public class Utente {
 	
 	//costruttore senza Set
 	public Utente(Long id, String nome, String cognome, String email, 
-			String telefono, int ruolo, boolean isEnabled, String password, String codiceDocente) {
+			String telefono, int ruolo, boolean isEnabled, String password, String passwordToken, String codiceDocente) {
 		this.id = id;
 		this.nome = nome;
 		this.cognome = cognome;
@@ -93,6 +100,7 @@ public class Utente {
 		this.ruolo = ruolo;
 		this.isEnabled = isEnabled;
 		this.password = password;
+		this.passwordToken = passwordToken;
 		this.codiceDocente = codiceDocente;
 	}
 
@@ -158,6 +166,12 @@ public class Utente {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public String getPasswordToken() {
+		return  passwordToken;
+	}
+	public void setPasswordToken(String passwordToken) {
+		this.passwordToken = passwordToken;
+	}
 	
 	public String getCodiceDocente() {
 		return codiceDocente;
@@ -188,5 +202,7 @@ public class Utente {
 		return "Utente [id=" + id + ", nome=" + nome + ", codiceDocente=" + codiceDocente + ", cognome=" + cognome + ", email=" + email + ", telefono="
 				+ telefono + ", ruolo=" + ruolo + ", isEnabled=" + isEnabled + "]";
 	}
+
+
 
 }
