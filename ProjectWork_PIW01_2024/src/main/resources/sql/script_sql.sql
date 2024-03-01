@@ -9,5 +9,7 @@ CREATE TABLE quiz (
     id INT PRIMARY KEY AUTO_INCREMENT,
     data DATE,
     tema_quiz_id INT,
+    aula_id INT,
     FOREIGN KEY (tema_quiz_id) REFERENCES tema(id)
+    FOREIGN KEY (aula_id) REFERENCES aula(id)
 );

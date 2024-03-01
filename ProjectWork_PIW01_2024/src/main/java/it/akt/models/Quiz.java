@@ -38,7 +38,6 @@ public class Quiz {
     private Long id;
 
     @Column(name = "data", nullable = false)
-    @NotEmpty
     private LocalDate data;
 
     //Relazione molti a uno con TemaQuiz
@@ -219,7 +218,7 @@ public class Quiz {
 	 */
 	@Override
 	public String toString() {
-		return "Quiz [id=" + id + ", data=" + data + ", temaQuiz=" + temaQuiz + ", aule=" + aule + ", risultati="
+		return "Quiz [id=" + id + ", data=" + data + ", temaQuiz=" + temaQuiz.getNome() + ", aule=" + aule + ", risultati="
 				+ risultati + ", domande=" + domande + "]";
 	}
 	
