@@ -120,7 +120,7 @@ public class QuizService {
         	throw new Exception("Errore: I campi Data e Tema non possono essere vuoti!");
         }
         
-        Set<Domanda> tutteLeDomandeSet = domandaRepository.findAllByTema(quiz.getTemaQuiz());
+        Set<Domanda> tutteLeDomandeSet = domandaRepository.findAllByTemaId(quiz.getTemaQuiz().getId());
         List<Domanda> tutteLeDomandeList = new ArrayList<>(tutteLeDomandeSet);
         if (tutteLeDomandeList.size() < 10) {
             throw new Exception("Non ci sono abbastanza domande per creare il quiz.");
@@ -141,7 +141,7 @@ public class QuizService {
      */
     public Quiz generaQuizCasuale(Quiz quiz) throws Exception {
         // Recupera tutte le domande dal repository
-        Set<Domanda> tutteLeDomandeSet = domandaRepository.findAllByTema(quiz.getTemaQuiz());
+        Set<Domanda> tutteLeDomandeSet = domandaRepository.findAllByTemaId(quiz.getTemaQuiz().getId());
         List<Domanda> tutteLeDomandeList = new ArrayList<>(tutteLeDomandeSet);
         Collections.shuffle(tutteLeDomandeList);
 
