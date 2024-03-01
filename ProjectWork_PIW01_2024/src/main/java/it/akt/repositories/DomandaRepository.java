@@ -17,7 +17,7 @@ public interface DomandaRepository extends ListCrudRepository <Domanda, Long> {
 	 public Set<Domanda> findDomandaByTema(TemaQuiz tema);
 	
 //	@Query("SELECT d FROM Domanda d JOIN tema t on d.tema_id = t.id WHERE t.id = : id")
-	 public List<Domanda> findAllByTemaId(Long id);
+	 public Set<Domanda> findAllByTemaId(Long id);
 	 
 	 public Domanda findDomandaById (Long id);	 
 	 
