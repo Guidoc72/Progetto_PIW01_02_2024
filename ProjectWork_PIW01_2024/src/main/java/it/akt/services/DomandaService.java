@@ -72,5 +72,9 @@ public class DomandaService {
 	public Set<Domanda>findDomandaByTemaId (Long id) {
 		return domandaRepository.findAllByTemaId(id);
 	}
+	public Set<Domanda> getAllDomandeByQuizId(Long idQuiz) {
+		// TODO Auto-generated method stub
+		return domandaRepository.findAllByQuizId(idQuiz);
+	}
 
 }
