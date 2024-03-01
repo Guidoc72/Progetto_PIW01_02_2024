@@ -207,7 +207,7 @@ public class GestioneQuizController {
 	            quizService.assegnaAule(Long.parseLong(id), auleSelezionate);
 	            model.addAttribute("messaggio", "true");
 	        } catch (Exception e) {
-	            System.err.println("Errore durante l'assegnazione delle aule al quiz!");
+	            System.out.println("Errore durante l'assegnazione delle aule al quiz!");
 	            model.addAttribute("messaggio", "false");
 	        }
 	    }
