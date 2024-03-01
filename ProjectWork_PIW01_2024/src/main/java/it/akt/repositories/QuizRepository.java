@@ -1,5 +1,7 @@
 package it.akt.repositories;
 
+import java.util.Set;
+
 import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.stereotype.Repository;
 import it.akt.models.Quiz;
@@ -15,4 +17,11 @@ import it.akt.models.Quiz;
 @Repository
 public interface QuizRepository extends ListCrudRepository<Quiz, Long> {
 	
+	/**
+	 * Restituisce la lista di oggetti quiz di una determinata tabella del db.
+	 * @param	id aula Aula
+	 * @return  Set Quiz
+	 */
+		Set<Quiz> findByAuleId(Long id);
+
 }
