@@ -69,7 +69,7 @@ public class DomandaService {
 		return domandaRepository.findDomandaByTema(tema);
 	}
 	
-	public List<Domanda>findDomandaByTemaId (Long id) {
+	public Set<Domanda>findDomandaByTemaId (Long id) {
 		return domandaRepository.findAllByTemaId(id);
 	}
 
