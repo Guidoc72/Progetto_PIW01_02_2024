@@ -126,7 +126,7 @@ public class AulaController {
  * Restituisce la view con l'elenco di tutti gli oggetti Utente associati alla tabella aula.
  * @param	id aula Aula
  * @param	model Model
- * @return	/gestione-aula-lista-studenti
+ * @return	/gestione-aula-studenti
  */
 	@GetMapping("/gestione-aula-studenti/{id}")
 	public String getUtentiByAula(@PathVariable Long id, Model model) {
@@ -140,29 +140,27 @@ public class AulaController {
 	}
 	
 /**
- * Gestisce la chiamata HTTP POST all'url "/gestione-aula-studente".
+ * Gestisce la chiamata HTTP POST all'url "/gestione-aula-studenti".
  * Ricevuti i dati dalla select, l'oggetto utente è stato aggiunto all'elenco.
  * Restituisce la view della pagina di gestione degli utenti.
  * @param	utente Utente object
- * @return	/gestione-aula
+ * @return	/gestione-aula-studenti
  */
 	@PostMapping("/gestione-aula-studenti/{id}")
 	public String addUtenteToLista(
-			@PathVariable Long id, 
-			@RequestParam(name = "nuovoStudente") 
-			Long id_utente, 
-			Model model) {
+						@PathVariable Long id, @RequestParam(name = "nuovoStudente") 
+						Long id_utente, Model model) {
 	    Aula aula = aulaService.getAulaById(id);
 	    utenteService.assegnaAula(id_utente, aula);
 	    return "redirect:/gestione-aula-studenti/" + id;
 	}
 
 /**
- * Gestisce la chiamata HTTP GET all'url "/gestione-aula-studenti".
+ * Gestisce la chiamata HTTP GET all'url "/gestione-aula-quiz".
  * Restituisce la view con l'elenco di tutti gli oggetti Quiz associati alla tabella aula.
  * @param	id aula Aula
  * @param	model Model
- * @return	/gestione-aula-lista-quiz
+ * @return	/gestione-aula-quiz
  */
 	@GetMapping("/gestione-aula-quiz/{id}")
 	public String getQuizByAula(@PathVariable Long id, Model model) {
