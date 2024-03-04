@@ -1,4 +1,4 @@
-<!-- Autore: Samuele Romanelli -->
+<!-- Autore: samuele romanelli -->
 <!DOCTYPE html>
 <html lang="it" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -51,11 +51,10 @@ input[type='radio']:checked {
 	</nav>
 	
 	<!-- da sistemare action -->
-	<form th:action="@{/save_risposta}" th:object="${risultato}" method="post">
+	<form action="/results/save_risposta" th:object="${risultato}" method="post">
 	
-		<input type="hidden" name="quiz" value="${quiz}">
-   		<input type="hidden" name="idUtente" value="${idUtente}">
-   		<input type="hidden" name="aula" value="${aula}">
+		<input type="hidden" name="quiz" value="${quiz.id}" th:field="${quiz.id}">
+   		<input type="hidden" name="idUtente" th:value="${idUtente}">
 	
 		<div class="container">
 		    <div class="row">
