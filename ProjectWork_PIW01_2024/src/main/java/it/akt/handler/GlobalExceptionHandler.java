@@ -12,7 +12,7 @@
         @ExceptionHandler(NoResourceFoundException.class)
         public ModelAndView handleNoHandlerFoundException(NoResourceFoundException ex) {
             ModelAndView mav = new ModelAndView();
-            mav.setViewName("404");
+            mav.setViewName("error");
             mav.setStatus(HttpStatus.NOT_FOUND);
             return mav;
         }
