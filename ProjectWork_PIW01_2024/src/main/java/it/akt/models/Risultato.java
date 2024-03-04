@@ -11,47 +11,36 @@ public class Risultato {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty
     @Column(name = "punteggio", nullable = false)
     private int punteggio;
 
-    @NotEmpty
     @Column(name = "risposta1", nullable = false)
     private int risposta1;
 
-    @NotEmpty
     @Column(name = "risposta2", nullable = false)
     private int risposta2;
 
-    @NotEmpty
     @Column(name = "risposta3", nullable = false)
     private int risposta3;
 
-    @NotEmpty
     @Column(name = "risposta4", nullable = false)
     private int risposta4;
 
-    @NotEmpty
     @Column(name = "risposta5", nullable = false)
     private int risposta5;
 
-    @NotEmpty
     @Column(name = "risposta6", nullable = false)
     private int risposta6;
 
-    @NotEmpty
     @Column(name = "risposta7", nullable = false)
     private int risposta7;
 
-    @NotEmpty
     @Column(name = "risposta8", nullable = false)
     private int risposta8;
 
-    @NotEmpty
     @Column(name = "risposta9", nullable = false)
     private int risposta9;
 
-    @NotEmpty
     @Column(name = "risposta10", nullable = false)
     private int risposta10;
 

@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import it.akt.models.Domanda;
 import it.akt.models.Quiz;
+import it.akt.models.Risultato;
 import it.akt.models.Utente;
 import it.akt.services.QuizService;
 import it.akt.services.UtenteService;
@@ -84,8 +86,12 @@ public class StudentiController {
 	public String eseguiQuiz(@PathVariable Long idUtente, @PathVariable Long idQuiz, 
 							Model model) throws Exception  {
 		Quiz quiz = quizService.findQuizById(idQuiz);
+		System.out.println("TemaQuiz: "+quiz.getTemaQuiz().getNome());
+		Set<Domanda> domande = quizService.getDomandeByQuizId(idQuiz);
+		model.addAttribute("domande", domande);
 		model.addAttribute("quiz", quiz);
-	    model.addAttribute("idUtente", idUtente);
+	    model.addAttribute("idUtente", idUtente.toString());
+	    model.addAttribute("risultato", new Risultato());
         return "esegui-quiz";
 	}
 }
