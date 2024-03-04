@@ -14,7 +14,7 @@ body {
 	padding: 50px;
 }
 
-.btn.btn-primary1:hover {
+.btn.btn-primary {
 	background-color: white;
 	border: blue;
 	padding: 10px 20px;
@@ -24,50 +24,6 @@ body {
 	 cursor: pointer;
 }
 
-.btn.btn-primary2:hover {
-	background-color: white;
-	border: blue;
-	padding: 10px 20px;
-	border-radius: 5px;
-	background-color: #2980b9;
-	color: #ffff00; /* Nuovo colore del testo al passaggio del cursore */
-}
-
-.btn.btn-primary3:hover {
-	background-color: white;
-	border: blue;
-	padding: 10px 20px;
-	border: none;
-	background-color: #2980b9;
-	color: #ffff00; /* Nuovo colore del testo al passaggio del cursore */
-}
-
-.btn.btn-primary4:hover{
-	background-color: white;
-	border: blue;
-	padding: 10px 20px;
-	border: none;
-	background-color: #2980b9;
-	color: #ffff00; /* Nuovo colore del testo al passaggio del cursore */
-}
-
-.btn.btn-primary5:hover {
-	background-color: white;
-	border: blue;
-	padding: 10px 20px;
-	border: none;
-	background-color: #2980b9;
-	color: #ffff00; /* Nuovo colore del testo al passaggio del cursore */
-}
-
-.btn.btn-primary6:hover {
-	background-color: white;
-	border: blue;
-	padding: 10px 20px;
-	border: none;
-	background-color: #2980b9;
-	color: #ffff00; /* Nuovo colore del testo al passaggio del cursore */
-}
 
 table.table th, table.table td {
 	padding: 20px;
