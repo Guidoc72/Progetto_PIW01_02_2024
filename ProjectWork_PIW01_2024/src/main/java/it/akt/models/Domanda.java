@@ -78,6 +78,16 @@ public class Domanda {
 		this.quesito = quesito;
 	}
 
+	public String getRisposta(int value) {
+		return switch (value) {
+			case 1 -> risposta1;
+			case 2 -> risposta2;
+			case 3 -> risposta3;
+			case 4 -> risposta4;
+			default -> "";
+		};
+	}
+
 	public String getRisposta1() {
 		return risposta1;
 	}

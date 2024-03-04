@@ -16,7 +16,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @Controller
-@RequestMapping("class/results")
+@RequestMapping("/results")
 public class RisultatoController {
     private final RisultatoService risultatoService;
     private final DomandaService domandaService;

@@ -24,4 +24,10 @@ public interface QuizRepository extends ListCrudRepository<Quiz, Long> {
 	 */
 		Set<Quiz> findByAuleId(Long id);
 
+	/**
+	 * Restituisce la lista di oggetti quiz associato ad un oggetto utente tramite il suo id.
+	 * @param id utente Utente
+	 * @return Set Quiz
+	 */
+		Set<Quiz> findByUtentiId(Long id);
 }

@@ -2,21 +2,39 @@ package it.akt.services;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import it.akt.models.Aula;
 import it.akt.models.Utente;
 import it.akt.repositories.UtenteRepository;
 
-
 @Service
 public class UtenteService {
 	
+	
 	private UtenteRepository utenteRepository;
 	
+	
+	
+	
+	BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+	
+
+
+	
+	
+
+	@Autowired
 	public UtenteService(UtenteRepository utenteRepository) {
 		this.utenteRepository = utenteRepository;
+		//this.passwordEncoder = passwordEncoder;
 	}
+	
+	
+	
+	
 	
 	/**
 	 * Aggiunge un utente al database e ritorna una stringa contenente la l'esito del salvataggio
@@ -25,17 +43,63 @@ public class UtenteService {
 	 */
 	
 	public Utente createNewUtente(Utente utente) {
-		return utenteRepository.save(utente);
-		
+		try {
+			Utente emailInserito = utenteRepository.findByEmail(utente.getEmail());
+			
+			if(emailInserito != null) {
+				boolean isExist = true;
+				
+				return null;
+			}
+			System.out.println("Codifica per DB:"+utente.getPassword()+"#");
+			
+			
+			
+			//passwordCriptata
+			String encriptedPass = passwordEncoder.encode(utente.getPassword());
+			utente.setPassword(encriptedPass);
+			return utenteRepository.save(utente);
+		} catch (Exception e){
+			return null;
+			
+		}
 	}
+	
+	/**
+	 * Controlla se l'utente è presente nel Database e restituisce un booleano come risultato
+	 * @param formUser User object 
+	 * @return boolean
+	 */
+		public boolean authorizedUser(Utente formUtente) {
+			Utente searchResult = utenteRepository.findByEmail(formUtente.getEmail());
+			
+			
+			if (searchResult != null ) {
+				Utente dbUser = searchResult;
+				String passEncode = (formUtente.getPassword());
+				String passDb = searchResult.getPassword();
+				
+
+				
+				//se l'oggetto non viene trovata lancia NoSuchElementException
+				
+					if (passwordEncoder.matches(passEncode, searchResult.getPassword())) {
+					
+					return true;
+				} else {
+					return false;
+				}
+			} else 
+				return false;
+		}
+		
 	
 	/**
 	 * Ritorna la lista di tutti gli utenti nel database
 	 * @return List<Utente>
 	 */
-	
 	public List<Utente> getUtenteList(){
-		return utenteRepository.findAll();
+		return (List<Utente>) utenteRepository.findAll();
 	}
 	
 	
@@ -59,6 +123,42 @@ public class UtenteService {
 	}
 	
 	/**
+	 * Recupera un token utente con passworkToken quando l'utente vuole resetare password. 
+	 * @param email String
+	 * @return Utente object
+	 * @throws CustomerNotFoundException 
+	 */
+	
+	public void updatePasswordToken (String token, String email) throws CustomerNotFoundException {
+		Utente utente = utenteRepository.findByEmail(email);
+		
+		if(utente != null) {
+			utente.setPasswordToken(token);
+			utenteRepository.save(utente);
+		}else {
+			throw new CustomerNotFoundException("Non esiste nessun utente con la seguente email:  " + email);
+		}
+	}
+	
+	public Utente getByResetPasswordToken(String resetPasswordToken) {
+		return utenteRepository.findBypasswordToken(resetPasswordToken);
+	}
+	
+	public void updatePassword(Utente utente, String newPassword) {
+		//TOGLIERE COMMENTO QUANDO FUNZIONA BCRIPT
+		
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String encoderPassword = passwordEncoder.encode(newPassword);
+		
+		utente.setPassword(encoderPassword);
+	
+		utente.setPasswordToken(null);
+		
+		utenteRepository.save(utente);
+	}
+	
+	
+	/**
 	 * Esegue l'aggiornamento di un oggetto "Utente". 
 	 * Metodo {@code void} che non ritorna nulla
 	 * @param utente Utente
@@ -77,6 +177,7 @@ public class UtenteService {
 		Utente utenteToDelete = utenteRepository.findById(id).orElseThrow();
 		utenteRepository.delete(utenteToDelete);
 	}
+	
 
 	public List<Utente> findAllByRuolo(int ruolo){
 		return utenteRepository.findAllByRuolo(ruolo);
@@ -97,3 +198,6 @@ public class UtenteService {
 	}
 	
 }
+
+
+	

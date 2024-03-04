@@ -230,4 +230,12 @@ public class QuizService {
     	}    	
     }
     
+    /**
+     * Restituisce tutti i quiz associati ad un utente specifico.
+     * @param 	id utente Utente
+     * @return 	Set Quiz
+     */
+    public Set<Quiz> findQuizByUtenteId(Long id) {
+    	return quizRepository.findByUtentiId(id);
+    }
 }
