@@ -9,9 +9,16 @@ import it.akt.models.Utente;
 
 @Repository
 public interface UtenteRepository  extends ListCrudRepository<Utente, Long>{
+<<<<<<< HEAD
 	
 	Utente findByEmail(String email);
 	
+=======
+	Utente findByEmail(String email);
+	
+	Utente findBypasswordToken(String passwordToken);
+
+>>>>>>> refs/remotes/origin/Emanuele-Rodrigo
 	List<Utente> findAllByRuolo(int ruolo);
 
 	/**
