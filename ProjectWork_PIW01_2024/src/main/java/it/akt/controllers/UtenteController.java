@@ -2,6 +2,7 @@ package it.akt.controllers;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,10 +13,13 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import it.akt.models.Utente;
 import it.akt.services.UtenteService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-@SessionAttributes("utenteIsAuthenticated")
+@SessionAttributes(names = {"nomeUtente", "cognomeUtente"})
 public class UtenteController {
 	
 	@Autowired
@@ -51,6 +55,7 @@ public class UtenteController {
 		public String getLogin(Model model, HttpSession session) {
 			String nomeUtente = (String) session.getAttribute("utente");
 			model.addAttribute("utente", new Utente());
+			
 			return "login";
 		
 		}
@@ -59,22 +64,28 @@ public class UtenteController {
 		public String login(@ModelAttribute("utente") Utente utente, Model model, HttpSession session) {
 			//System.out.println("### Utente: " + utente);
 			String username = utente.getEmail();
-			session.setAttribute("utenteIsAutothenticated", username);
-			String nomeUtente = (String) session.getAttribute("utenteIsAutothenticated");
+//			session.setAttribute("utente", username);
+			String nomeUtente = (String) session.getAttribute("utente");
 			
-			System.out.println("utente: " + username + " - "+ nomeUtente);
+		
 			
 			if(utenteService.authorizedUser(utente)) {
 				//session.setAttribute("utenteIsAutothenticated", username);
 				Utente dbUtente = utenteService.getUtenteByEmail(utente.getEmail());
+				session.setAttribute("nomeUtente", dbUtente.getNome());
+				session.setAttribute("cognomeUtente", dbUtente.getCognome());
+				session.setAttribute("ruoloUtente", dbUtente.getRuolo());
+				session.setAttribute("idUtente", dbUtente.getId());
 				
 				
-				if(dbUtente.getRuolo() == 0) {  // era 1
-					session.setAttribute("utenteIsDocente", 1);
+				dbUtente.setPassword("");
+				model.addAttribute("utente", dbUtente);
+				if(dbUtente.getRuolo() == 1 || dbUtente.getRuolo() == 0) { 
+					//session.setAttribute("utenteIsDocente", 1);
 				
 					return "redirect:home";
 				}
-				return "redirect:home";
+				return "redirect:login";
 			}else
 			model.addAttribute("message", "Utente o password incorretta");
 			return "login";
@@ -84,10 +95,37 @@ public class UtenteController {
 	
 		
 		@GetMapping("/home")
-		public String home() {
+		public String home(@ModelAttribute Utente utente, Model model, HttpSession session) {
+			model.addAttribute("utente", utente);
+			
+			 //Utente utente =(Utente) session.getAttribute("utenteIsAutothenticated");
+			
+			
 			
 			return "home";
 		
+		}
+		
+		@GetMapping("/logout")
+		public String logout(Model model, HttpSession session, HttpServletRequest req, HttpServletResponse res) {
+			
+			String nomeUtente = (String) session.getAttribute("utente");
+			model.addAttribute("utente", new Utente());
+			
+			Cookie [] cookies = req.getCookies();
+	    	for(Cookie c : cookies) {
+	    		if(c.getName().equals("JSESSIONID")) {
+	    			
+	    			System.out.println(c.getName()+ " " + c.getValue());
+	    			c.setValue(null);
+	    			c.setMaxAge(0);
+	    			c.setPath("/");
+	    			res.addCookie(c);
+	    			System.out.println(c.getName()+ " " + c.getValue());
+	    		}
+	    	}
+	    	session.invalidate();
+			return "redirect:/login";
 		}
 		
 		

@@ -1,0 +1,31 @@
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+	<div th:fragment="home-user">
+	
+		<script >
+			$(document).ready(function navbarName(){
+				var navName = document.getElementsByTagName('title');
+				document.getElementById('navbar-title').innerHTML = navName[0].innerText;
+			});
+		</script>
+					
+		<table class="table table-striped">
+	  			<thead>
+				    <tr>
+				      <th scope="col">Quiz</th>
+				      <th scope="col">Esegui</th>
+				    </tr>
+				</thead>
+	  			<tbody>
+		   			<tr th:each="quiz : ${quizzes}">
+						<td th:text="${quiz.temaQuiz.nome}"></td>
+						<td>
+							<a th:href=" '/esegui-quiz' + ${session.utente.id} + ${quiz.id}" class="btn btn-primary">
+								Esegui
+							</a>
+						</td>
+					</tr>
+	  			</tbody>
+		</table>
+    
+	</div>
+</html>
