@@ -20,6 +20,9 @@ import it.akt.models.Quiz;
 import it.akt.models.TemaQuiz;
 import it.akt.services.QuizService;
 
+/**
+ * @author Samuele Romanelli
+ */
 @Controller
 public class GestioneQuizController {
 	
