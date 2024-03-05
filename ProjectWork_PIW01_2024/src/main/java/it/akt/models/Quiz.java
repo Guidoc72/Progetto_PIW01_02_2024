@@ -210,6 +210,25 @@ public class Quiz {
 	public Set<Domanda> getDomande() {
 		return domande;
 	}
+	
+	/**
+	 * Imposta l'insieme di utenti.
+	 *
+	 * @param utenti L'insieme di utenti da impostare.
+	 */
+	public void setUtenti(Set<Utente> utenti) {
+	    this.utenti = utenti;
+	}
+
+	/**
+	 * Restituisce l'insieme di utenti.
+	 *
+	 * @return L'insieme di utenti.
+	 */
+	public Set<Utente> getUtente() {
+	    return utenti;
+	}
+
 
 	/**
 	 * Restituisce una rappresentazione testuale dell'oggetto Quiz.
@@ -218,8 +237,7 @@ public class Quiz {
 	 */
 	@Override
 	public String toString() {
-		return "Quiz [id=" + id + ", data=" + data + ", temaQuiz=" + temaQuiz.getNome() + ", aule=" + aule + ", risultati="
-				+ risultati + ", domande=" + domande + "]";
+		return "Quiz [id=" + id + ", data=" + data + ", temaQuiz=" + temaQuiz.getNome() + ", aule=" +"]";
 	}
 	
 

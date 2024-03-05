@@ -98,8 +98,6 @@ public class GestioneQuizController {
 	@PostMapping("/toastdelete")
 	public String handleButton(RedirectAttributes redirectAttributes) {
 	    redirectAttributes.addFlashAttribute("showToast", true);
-	    // Stampa un messaggio di debug per verificare l'invio del toast.
-	    System.out.println("Toast inviato a Gestionequiz.html");
 	    return "redirect:/gestionequiz";
 	}
 
@@ -114,8 +112,6 @@ public class GestioneQuizController {
 	@PostMapping("/toastcreate")
 	public String handleButton2(RedirectAttributes redirectAttributes) {
 	    redirectAttributes.addFlashAttribute("showToast2", true);
-	    // Stampa un messaggio di debug per verificare l'invio del secondo toast.
-	    System.out.println("Toast inviato a Gestionequiz.html");
 	    return "redirect:/gestionequiz";
 	}
 
@@ -150,17 +146,12 @@ public class GestioneQuizController {
 	        nuovoQuiz.setTemaQuiz(tema);
 	        
 	        quizService.createQuiz(nuovoQuiz);
-	        
-	        System.out.print("Ho creato il quiz con id: " + nuovoQuiz.getId() + " con il Tema: " + nuovoQuiz.getTemaQuiz().getNome());
-	        System.out.println();
 
-	        
 	        quizService.generaQuizCasuale(nuovoQuiz);
 	        //prendo l'id del quiz appena creato
 	        return "redirect:/gestionequiz/add/assegnaaule?idQuiz="+nuovoQuiz.getId();
 	        
 	        }catch (Exception e) {
-		    System.out.println("Non ci sono abbastanza domande per generare il quiz!");
 	        model.addAttribute("messaggio", "false");
 	        return "successo";
 	        }
@@ -193,24 +184,14 @@ public class GestioneQuizController {
 	  */
 	 @PostMapping("gestionequiz/add/assegnaaule")
 	 public String assegnaAule(@RequestParam("aule") List<Aula> auleSelezionate, @ModelAttribute("idQuiz") String id, Model model) throws Exception {
-		
-		 //stampa controllo creazione e assegnazione quiz con aula
-		 System.out.print("Ho creato il quiz con id: " + id + " ed è stato assegnato alle aule: ");
-		 for (Aula aula : auleSelezionate) {
-		     System.out.print(aula.getNome() + " ");
-		 }
-		 System.out.println();
 
-		
 		if(auleSelezionate.size()==0) {
-	        System.err.println("Non sono state selezionate aule per assegnare il quiz!");
 	        model.addAttribute("messaggio", "false");
 	    } else {
 	        try {
 	            quizService.assegnaAule(Long.parseLong(id), auleSelezionate);
 	            model.addAttribute("messaggio", "true");
 	        } catch (Exception e) {
-	            System.err.println("Errore durante l'assegnazione delle aule al quiz!");
 	            model.addAttribute("messaggio", "false");
 	        }
 	    }

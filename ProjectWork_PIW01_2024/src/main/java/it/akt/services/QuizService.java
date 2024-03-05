@@ -12,12 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import it.akt.models.Quiz;
 import it.akt.models.TemaQuiz;
+import it.akt.models.Utente;
 import it.akt.models.Domanda;
 import it.akt.models.Aula;
 import it.akt.repositories.AulaRepository;
 import it.akt.repositories.DomandaRepository;
 import it.akt.repositories.QuizRepository;
 import it.akt.repositories.TemaQuizRepository;
+import it.akt.repositories.UtenteRepository;
 
 
 /**
@@ -36,6 +38,7 @@ public class QuizService {
 	private final DomandaRepository domandaRepository;
 	private final TemaQuizRepository temaQuizRepository;
 	private final AulaRepository aulaRepository;
+	private final UtenteRepository utenteRepository;
 
 	/**
 	 * Costruttore della classe `QuizService`.
@@ -43,12 +46,12 @@ public class QuizService {
 	 * @param quizRepository Il repository per i quiz.
 	 */
     @Autowired
-    public QuizService(QuizRepository quizRepository, DomandaRepository domandaRepository, TemaQuizRepository temaQuizRepository, AulaRepository aulaRepository) {
+    public QuizService(QuizRepository quizRepository, DomandaRepository domandaRepository, TemaQuizRepository temaQuizRepository, AulaRepository aulaRepository, UtenteRepository utenteRepository) {
         this.quizRepository = quizRepository;
         this.domandaRepository = domandaRepository;
         this.temaQuizRepository = temaQuizRepository;
         this.aulaRepository = aulaRepository;
-        
+        this.utenteRepository = utenteRepository;
     }
     
     /**
@@ -62,7 +65,6 @@ public class QuizService {
     	try {
             return quizRepository.findAll();
         } catch (Exception e) {
-            System.out.println("Errore: Non è stato creato nessun Quiz!");
             throw new Exception("Errore: Non è stato creato nessun Quiz!");
         }    	
     }
@@ -79,7 +81,6 @@ public class QuizService {
         if (quiz.isPresent()) {
             return quiz.get();
         } else {
-        	System.out.println("Errore: Quiz non trovato o non esistente con ID: " + id);
         	throw new Exception("Errore: Quiz non trovato o non esistente con ID: " + id);
         }    	
     }
@@ -100,7 +101,6 @@ public class QuizService {
     	try {
     		quizRepository.deleteById(id);
     	} catch (Exception e) {
-    		System.out.println("Errore: Eliminazione non riuscita del quiz: " +id+ " .");
     		throw new Exception("Errore: Eliminazione non riuscita del quiz: " +id+ " .");
     	}
 		return null;      	
@@ -116,7 +116,6 @@ public class QuizService {
     public Quiz createQuiz(Quiz quiz) throws Exception {
     	
         if(quiz.getData() == null || quiz.getTemaQuiz() == null) {
-        	System.out.println("Errore: I campi Data e Tema non possono essere vuoti!");
         	throw new Exception("Errore: I campi Data e Tema non possono essere vuoti!");
         }
         
@@ -170,6 +169,8 @@ public class QuizService {
      */
 	   public Quiz assegnaAule(Long id, List<Aula> aule) throws Exception {
 		   
+		   
+		   
 		   if(aule.size()==0) {
 			   throw new Exception("Non sono state selezionate aule per assegnare il quiz!");
 		   }
@@ -178,7 +179,12 @@ public class QuizService {
 				   .orElseThrow(() -> new Exception("Quiz non trovato o non esistente con ID: " + id));
 		   
 		   for(int i = 0; i < aule.size(); i++) {
+			   
+			   List<Utente> utente = utenteRepository.findByAuleId(aule.get(i).getId());
 			   quiz.getAule().add(aule.get(i));			   
+			   for(int i2 = 0; i2 < utente.size(); i2++) {
+				   quiz.getUtente().add(utente.get(i));
+			   }
 		   }
 			return quizRepository.save(quiz);
 	   }
@@ -208,7 +214,6 @@ public class QuizService {
             List<TemaQuiz> allTemi = temaQuizRepository.findAll();
             return new HashSet<>(allTemi); // Converte la lista in un Set
         } catch (Exception e) {
-            System.out.println("Errore: Non è stato trovato nessun Tema!");
             throw new Exception("Errore: Non è stato trovato nessun Tema!");
         }
     }
@@ -225,7 +230,6 @@ public class QuizService {
     		List<Aula> allAule = aulaRepository.findAll();
     		return new HashSet<>(allAule);    		
     	}catch (Exception e) {
-    		System.out.println("Errore: Non è stato trovata nessun Aula!");
             throw new Exception("Errore: Non è stato trovata nessun Aula!");    		
     	}    	
     }
