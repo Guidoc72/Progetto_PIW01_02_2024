@@ -39,7 +39,7 @@ public class UtenteController {
         List<Utente> allUsers = utenteService.getUtenteList();
         model.addAttribute("utente", allUsers);
         
-        System.out.println(allUsers);
+        
         return "login";
     }
     
@@ -116,12 +116,12 @@ public class UtenteController {
 	    	for(Cookie c : cookies) {
 	    		if(c.getName().equals("JSESSIONID")) {
 	    			
-	    			System.out.println(c.getName()+ " " + c.getValue());
+	    			
 	    			c.setValue(null);
 	    			c.setMaxAge(0);
 	    			c.setPath("/");
 	    			res.addCookie(c);
-	    			System.out.println(c.getName()+ " " + c.getValue());
+	    			
 	    		}
 	    	}
 	    	session.invalidate();
