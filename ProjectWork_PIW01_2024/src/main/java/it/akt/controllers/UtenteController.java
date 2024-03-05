@@ -128,6 +128,8 @@ public class UtenteController {
 			model.addAttribute("aula",a);
 
 
+
+
 			 //Utente utente =(Utente) session.getAttribute("utenteIsAutothenticated");
 			
 			
