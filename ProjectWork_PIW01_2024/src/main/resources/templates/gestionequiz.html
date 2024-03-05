@@ -42,22 +42,6 @@
 <body>
 
 	<header th:insert="~{fragments/navbar.html :: navmenu}"></header>
-
-<!-- 	<nav class="navbar navbar-expand-lg navbar-light custom-navbar"> -->
-<!--     <div class="container"> -->
-<!--         <a class="navbar-brand"> -->
-<!--             <img src="../../images/logo_progetto.png" width="50" height="50" alt="Logo"> -->
-<!--         </a> -->
-<!--         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" -->
-<!--                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> -->
-<!--             <span class="navbar-toggler-icon"></span> -->
-<!--         </button> -->
-<!-- 	        <div class="collapse navbar-collapse" id="navbarNav"> -->
-<!-- 	          	<button class="btn btn btn-dark me-2 text-light fs-6 fs-md-4" th:href="@{/gestionequiz}"><a class="nav-link text-light" th:href="@{/gestionequiz}">Home</a></button> -->
-<!--   		        aggiungere altri button qui copiando riga 28 -->
-<!-- 	        </div> -->
-<!-- 	    </div> -->
-<!-- 	</nav>	 -->
     
     <div class="container">
     <button class="btn btn-success float-end fs-6 fs-md-4" style="margin-right: 5px; float: right; margin-top: 10px;" th:onclick="|window.location.href='/gestionequiz/add'|">Crea un Quiz</button>
