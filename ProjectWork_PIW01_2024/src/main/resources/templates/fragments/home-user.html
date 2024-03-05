@@ -1,5 +1,5 @@
 <html lang="it" xmlns:th="http://www.thymeleaf.org">
-	<div th:fragment="home-user">
+	<div th:fragment="home-user(quizzes, risultati,aula)">
 	
 		<script >
 			$(document).ready(function navbarName(){
@@ -11,17 +11,26 @@
 		<table class="table table-striped">
 	  			<thead>
 				    <tr>
-				      <th scope="col">Quiz</th>
-				      <th scope="col">Esegui</th>
+				      	<th scope="col">Quiz</th>
+				      	<th scope="col">Esegui</th>
+						<th scope="col">Risultato</th>
 				    </tr>
 				</thead>
 	  			<tbody>
 		   			<tr th:each="quiz : ${quizzes}">
 						<td th:text="${quiz.temaQuiz.nome}"></td>
 						<td>
-							<a th:href=" '/esegui-quiz' + ${session.utente.id} + ${quiz.id}" class="btn btn-primary">
+							<a th:if="${not #lists.contains(risultati.![quiz.id], quiz.id)}" th:href=" '/esegui-quiz' + '/'+ ${session.idUtente} +'/' + ${quiz.id}" class="btn btn-primary">
 								Esegui
 							</a>
+
+							<button th:unless="${not #lists.contains(risultati.![quiz.id], quiz.id)}" class="btn btn-primary" disabled>Esegui</button>
+						</td>
+						<td>
+							<a th:if="${#lists.contains(risultati.![quiz], quiz)}" th:href=" '/results/' + ${aula.id} +'_'+ ${quiz.id} + '_'+ ${session.idUtente}" class="btn btn-primary">
+								Visualizza
+							</a>
+							<button th:unless="${#lists.contains(risultati.![quiz], quiz)}" class="btn btn-primary" disabled>Visualizza</button>
 						</td>
 					</tr>
 	  			</tbody>

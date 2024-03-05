@@ -107,7 +107,6 @@ public class RisultatoController {
     public String saveRisposta(@ModelAttribute("risultato") Risultato risultato, @ModelAttribute("quiz") Quiz quiz, @ModelAttribute("idUtente") String idUtente) throws Exception {
     	
     	Aula aula = aulaService.findByUtentiId(Long.parseLong(idUtente));
-    	System.out.println("Secondo: " + aula.getId());
     	Quiz newQuiz = quizService.findQuizById(quiz.getId());
     	
     	risultato.setQuiz(newQuiz);

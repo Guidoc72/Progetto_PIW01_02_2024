@@ -42,7 +42,7 @@ public class Quiz {
 
     //Relazione molti a uno con TemaQuiz
     @ManyToOne
-    @JoinColumn(name = "id_tema")
+    @JoinColumn(name = "tema_id")
     private TemaQuiz temaQuiz;
     
     //Relazione Molti a Molti tra Quiz e Aula

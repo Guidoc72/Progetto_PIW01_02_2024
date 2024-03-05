@@ -1,8 +1,15 @@
 package it.akt.controllers;
 
 import java.util.List;
+import java.util.Set;
 
 
+import it.akt.models.Aula;
+import it.akt.models.Quiz;
+import it.akt.models.Risultato;
+import it.akt.services.AulaService;
+import it.akt.services.QuizService;
+import it.akt.services.RisultatoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,17 +31,25 @@ public class UtenteController {
 	
 	@Autowired
 	private UtenteService utenteService;
-	
 
-	
-	public UtenteController(UtenteService utenteService) {
-		this.utenteService = utenteService;
-	
+	@Autowired
+	private RisultatoService risultatoService;
+	@Autowired
+	private QuizService quizService;
+	@Autowired
+	private AulaService aulaService;
+
+	public UtenteController() {
 	}
-	
-	
-	
-    @GetMapping("/registrationdgsdfgadgdf")
+
+
+	public UtenteController(UtenteService utenteService, RisultatoService risultatoService, QuizService quizService) {
+		this.utenteService = utenteService;
+		this.risultatoService = risultatoService;
+		this.quizService = quizService;
+	}
+
+	@GetMapping("/registrationdgsdfgadgdf")
     public String getAllUsers(Model model) {
         List<Utente> allUsers = utenteService.getUtenteList();
         model.addAttribute("utente", allUsers);
@@ -97,7 +112,17 @@ public class UtenteController {
 		@GetMapping("/home")
 		public String home(@ModelAttribute Utente utente, Model model, HttpSession session) {
 			model.addAttribute("utente", utente);
-			
+
+
+			Long idUtente = (Long) session.getAttribute("idUtente");
+			List<Risultato> r = risultatoService.findAllByUtenteId(idUtente);
+			Set<Quiz> q = quizService.findQuizByUtenteId(idUtente);
+			Aula a = aulaService.findByUtentiId(idUtente);
+			model.addAttribute("quizzes", q);
+			model.addAttribute("risultati", r);
+			model.addAttribute("aula",a);
+
+
 			 //Utente utente =(Utente) session.getAttribute("utenteIsAutothenticated");
 			
 			
