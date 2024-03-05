@@ -11,7 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import it.akt.models.Utente;
 import it.akt.services.CustomerNotFoundException;
@@ -131,7 +131,7 @@ public class ForgotPasswordController {
 	
 	
 	@PostMapping("/resetPassword")
-	public String processResetPassword(@ModelAttribute("utente") Utente utente,@ModelAttribute("confirmPass") String confirmPass, Model model) {
+	public String processResetPassword(@ModelAttribute("utente") Utente utente,@ModelAttribute("confirmPass") String confirmPass, Model model, RedirectAttributes redirectAttributes) {
 		
 		Utente utenteDaForm = utenteService.getByResetPasswordToken(utente.getPasswordToken());
 		
@@ -156,10 +156,11 @@ public class ForgotPasswordController {
 		model.addAttribute("message", "La password è stato aggiornato correttamente");
 		} 
 			
-		
-		return "resetPasswordForm";
+		redirectAttributes.addFlashAttribute("showToast3", true);
+	    // Stampa un messaggio di debug per verificare l'invio del secondo toast.
+	    System.out.println("Toast inviato a login.html");
+		return "redirect:/login";
 	}
-	
-	
 
 }
+

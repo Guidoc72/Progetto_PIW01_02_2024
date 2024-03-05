@@ -51,7 +51,7 @@ public class UtenteService {
 				
 				return null;
 			}
-			System.out.println("Codifica per DB:"+utente.getPassword()+"#");
+			
 			
 			
 			
@@ -193,7 +193,7 @@ public class UtenteService {
 		Utente utente = utenteRepository.findById(id).orElseThrow(() -> 
 			new RuntimeException(String.format("Non esiste nessuna classe con id: %d", id)));
 		utente.getAule().add(aula);
-		System.out.println(utente.getAule().size());
+		
 		return utenteRepository.save(utente);
 	}
 	

@@ -54,7 +54,7 @@ public class UtenteController {
         List<Utente> allUsers = utenteService.getUtenteList();
         model.addAttribute("utente", allUsers);
         
-        System.out.println(allUsers);
+        
         return "login";
     }
     
@@ -70,6 +70,11 @@ public class UtenteController {
 		public String getLogin(Model model, HttpSession session) {
 			String nomeUtente = (String) session.getAttribute("utente");
 			model.addAttribute("utente", new Utente());
+			
+			//controllo toast modifica psw
+			if (model.containsAttribute("showToast3")) {
+	        	model.addAttribute("showToast3", true);
+	        }
 			
 			return "login";
 		
@@ -141,12 +146,12 @@ public class UtenteController {
 	    	for(Cookie c : cookies) {
 	    		if(c.getName().equals("JSESSIONID")) {
 	    			
-	    			System.out.println(c.getName()+ " " + c.getValue());
+	    			
 	    			c.setValue(null);
 	    			c.setMaxAge(0);
 	    			c.setPath("/");
 	    			res.addCookie(c);
-	    			System.out.println(c.getName()+ " " + c.getValue());
+	    			
 	    		}
 	    	}
 	    	session.invalidate();
