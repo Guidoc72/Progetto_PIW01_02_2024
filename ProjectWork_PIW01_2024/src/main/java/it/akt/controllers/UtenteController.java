@@ -56,6 +56,11 @@ public class UtenteController {
 			String nomeUtente = (String) session.getAttribute("utente");
 			model.addAttribute("utente", new Utente());
 			
+			//controllo toast modifica psw
+			if (model.containsAttribute("showToast3")) {
+	        	model.addAttribute("showToast3", true);
+	        }
+			
 			return "login";
 		
 		}

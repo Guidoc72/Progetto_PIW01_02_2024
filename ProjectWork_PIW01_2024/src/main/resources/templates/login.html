@@ -6,7 +6,8 @@
     <title>Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <!-- Stili per link e logo progetto -->
+    <link href='https://unpkg.com/css.gg@2.0.0/icons/css/check-o.css' rel='stylesheet'>
+    <!-- Stili per link, logo progetto e toast-->
     <style>
         a.link-opacity-25-hover {
             color: orange;
@@ -19,7 +20,29 @@
             left: 10px;
             width: 50px;
         }
-    </style>
+        .custom-toast {
+		    background-color: rgb(253, 37, 13); 
+		    margin-right: 15px;
+		    right: 0;
+		}
+		.custom-toast2 {
+			background-color: rgb(0, 227, 13);
+			margin-right: 15px;		
+			right: 0;   
+		}
+		.custom-toast-strong{
+		font: bold;
+		font-family: sans-serif;
+		background-color: black;
+		color: rgb(253, 37, 13);
+		}
+		.custom-toast-strong2{
+		font: bold;
+		font-family: sans-serif;
+		background-color: black;
+		color: rgb(0, 227, 13);
+		}
+        </style>
 </head>
 
 <body class="conta" style="background-image: url('images/texture_black.png'); background-repeat: no-repeat; background-attachment: fixed; background-size: cover;">
@@ -51,9 +74,51 @@
                 <button type="button" onclick="location.href='/registration'" style="margin-top: 15px;" class="btn btn-sm btn-warning me-2"><b>Registrati</b></button>
                 <button type="submit" style="margin-top: 10px;" class="btn btn-lg btn-success"><b>Accedi</b></button>
             </div>
-        </form>
+        </form>  
+        
     </div>
+    
+        <div aria-live="polite" aria-atomic="true" class="position-fixed">
+		<div class="toast-container position-fixed top-0 end-0 p-3">
+			<div id="myToast3" class="toast custom-toast2" role="alert" aria-live="assertive" aria-atomic="true">
+				  <div class="toast-header custom-toast-strong2">
+				    <i class="gg-check-o"></i><span style="margin-right: 10px;"></span><strong class="me-auto">Nuova Password</strong>
+				    <small class="text-white" id="toastTime"></small>
+				    <button type="button" class="btn-close bg-white text-white" data-bs-dismiss="toast" aria-label="Close"></button>
+				  </div>
+				  	<div class="toast-body">
+				   		Hai aggiornato la password correttamente!
+				  	</div>
+			</div>
+		</div>
+	</div>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+   	<script th:inline="javascript">
+	
+	 // Funzione per ottenere l'orario corrente
+	  function getCurrentTime() {
+	    const now = new Date();
+	    const hours = now.getHours();
+	    const minutes = now.getMinutes();
+	    const formattedTime = `${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
+	    return formattedTime;
+	  }
+
+	  // Aggiorna l'elemento small con l'orario corrente
+	  document.getElementById('toastTime').textContent = getCurrentTime();
+   	
+   	/*<![CDATA[*/
+    var showToast3 = /*[[${showToast3}]]*/ false;
+    showToast3 = showToast3 != null ? showToast3 : false;
+    if (showToast3) {
+        var toast3 = new bootstrap.Toast(document.getElementById('myToast3'));
+        toast3.show();
+    }
+    /*]]>*/
+   	
+   	</script> 
 </body>
 
 </html>
