@@ -87,7 +87,7 @@ public class UtenteController {
 				}
 				return "redirect:login";
 			}else
-			model.addAttribute("message", "Utente o password incorretta");
+			model.addAttribute("message", "Utente o password errata!");
 			return "login";
 		
 		}
