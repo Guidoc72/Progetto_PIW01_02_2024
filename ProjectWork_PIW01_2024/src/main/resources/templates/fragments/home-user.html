@@ -8,6 +8,8 @@
 			});
 		</script>
 					
+		<div th:if="${session.ruoloUtente == 0}" class="nav-item">
+					
 		<table class="table table-striped">
 	  			<thead>
 				    <tr>
@@ -26,6 +28,7 @@
 					</tr>
 	  			</tbody>
 		</table>
+		</div>
     
 	</div>
 </html>
