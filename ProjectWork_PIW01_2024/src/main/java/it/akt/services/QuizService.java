@@ -175,35 +175,42 @@ public class QuizService {
         }
         
     /**
-     * Assegna le aule al quiz specificato.
+     * Assegna aule a un quiz.
      *
      * @param id   L'ID del quiz da assegnare alle aule.
-     * @param aule La lista delle aule da assegnare al quiz.
-     * @return L'oggetto Quiz aggiornato con le aule assegnate.
-     * @throws Exception Se non sono state selezionate aule o se il quiz non è trovato o non esistente.
+     * @param aule La lista delle aule selezionate per l'assegnazione.
+     * @return Il quiz con le aule assegnate.
+     * @throws Exception Se non sono state selezionate aule per l'assegnazione.
      */
     public Quiz assegnaAule(Long id, List<Aula> aule) throws Exception {
-	    if (aule.isEmpty()) {
-	        throw new Exception("Non sono state selezionate aule per assegnare il quiz!");
-	    }
+        if (aule.isEmpty()) {
+            throw new Exception("Non sono state selezionate aule per assegnare il quiz!");
+        }
 
-	    Quiz quiz = quizRepository.findById(id)
-	            .orElseThrow(() -> new Exception("Quiz non trovato o non esistente con ID: " + id));
+        Quiz quiz = quizRepository.findById(id)
+                .orElseThrow(() -> new Exception("Quiz non trovato o non esistente con ID: " + id));
 
-	    for (Aula aula : aule) {
-	        assegnaQuizAdAula(quiz, aula);
-	    }
+        for (Aula aula : aule) {
+            assegnaQuizAdAula(quiz, aula);
+        }
 
-	    return quizRepository.save(quiz);
-	}
+        return quizRepository.save(quiz);
+    }
 
-	private void assegnaQuizAdAula(Quiz quiz, Aula aula) {
-	    quiz.getAule().add(aula);
+    /**
+     * Assegna un quiz a un'aula specifica.
+     *
+     * @param quiz Il quiz da assegnare.
+     * @param aula L'aula a cui assegnare il quiz.
+     */
+    private void assegnaQuizAdAula(Quiz quiz, Aula aula) {
+        quiz.getAule().add(aula);
 
-	    for (Utente utente : aula.getUtenti()) {
-	        quiz.getUtente().add(utente);
-	    }
-	}
+        for (Utente utente : aula.getUtenti()) {
+            quiz.getUtente().add(utente);
+        }
+    }
+
     
     /**
      * Recupera un insieme di domande associate all'ID del quiz specificato.
