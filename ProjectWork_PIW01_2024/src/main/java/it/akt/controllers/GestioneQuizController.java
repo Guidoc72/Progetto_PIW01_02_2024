@@ -18,7 +18,9 @@ import it.akt.models.Aula;
 import it.akt.models.Domanda;
 import it.akt.models.Quiz;
 import it.akt.models.TemaQuiz;
+import it.akt.models.Utente;
 import it.akt.services.QuizService;
+import jakarta.servlet.http.HttpSession;
 
 /**
  * @author Samuele Romanelli
@@ -37,7 +39,11 @@ public class GestioneQuizController {
 	 * @throws Exception se si verifica un errore durante l'esecuzione
 	 */
 	@GetMapping("/gestionequiz")
-    public String gestioneQuizPage(Model model) throws Exception {
+    public String gestioneQuizPage(Model model,Utente utente,HttpSession session) throws Exception {
+		int ruoloUtente = (int) session.getAttribute("ruoloUtente");
+		if(ruoloUtente==0){
+		return "redirect:/404";
+		} else {
 		List<Quiz> listaQuiz = quizService.findAllQuiz();
         model.addAttribute("listaQuiz", listaQuiz);
         //Toast delete check
@@ -50,7 +56,7 @@ public class GestioneQuizController {
         }
         return "gestionequiz"; 
     }
-	
+	}
 	/**
 	 * Restituisce la pagina "checkquiz" con i dati del quiz specificato dall'ID.
 	 *
@@ -60,14 +66,18 @@ public class GestioneQuizController {
 	 * @throws Exception se si verifica un errore durante l'esecuzione
 	 */
 	@GetMapping("gestionequiz/check/{idQuiz}")
-	public String checkQuiz(@PathVariable(name = "idQuiz") Long idQuiz, Model model) throws Exception {
+	public String checkQuiz(@PathVariable(name = "idQuiz") Long idQuiz, Model model,Utente utente,HttpSession session) throws Exception {
+		int ruoloUtente = (int) session.getAttribute("ruoloUtente");
+		if(ruoloUtente==0){
+		return "redirect:/404";
+		} else {
 		Quiz checkQuiz = quizService.findQuizById(idQuiz);
 		Set<Domanda> domande = quizService.getDomandeByQuizId(idQuiz);
 		model.addAttribute("domande", domande);
 		model.addAttribute("checkQuiz", checkQuiz);
 	    return "checkquiz";
 	}
-	
+	}
 	/**
 	 * Elimina un quiz specificato dall'ID e restituisce la pagina "conferma-eliminazione".
 	 *
@@ -77,7 +87,11 @@ public class GestioneQuizController {
 	 * @throws Exception se si verifica un errore durante l'esecuzione
 	 */
 	@GetMapping("gestionequiz/delete/{idQuiz}")
-	public String deleteQuiz(@PathVariable(name = "idQuiz") Long idQuiz, Model model) throws Exception { 
+	public String deleteQuiz(@PathVariable(name = "idQuiz") Long idQuiz, Model model,Utente utente,HttpSession session) throws Exception { 
+		int ruoloUtente = (int) session.getAttribute("ruoloUtente");
+		if(ruoloUtente==0){
+		return "redirect:/404";
+		} else {
 		try {
 		Quiz deleteQuiz = quizService.deleteQuizById(idQuiz);
 		model.addAttribute("messaggio", "true");
@@ -86,7 +100,7 @@ public class GestioneQuizController {
 		}
 		return "conferma-eliminazione";
 	}
-	
+	}
 	/**
 	 * Questo metodo gestisce l'evento di clic sul pulsante per eliminare un quiz.
 	 * Viene utilizzato l'annotazione @PostMapping per mappare la richiesta HTTP POST
@@ -124,12 +138,16 @@ public class GestioneQuizController {
 	 * @throws Exception se si verifica un errore durante l'esecuzione
 	 */
 	@GetMapping("gestionequiz/add")
-	public String addQuiz(Model model) throws Exception {
+	public String addQuiz(Model model,Utente utente,HttpSession session) throws Exception {
+		int ruoloUtente = (int) session.getAttribute("ruoloUtente");
+		if(ruoloUtente==0){
+		return "redirect:/404";
+		} else {
 		Set<TemaQuiz> temi = quizService.getAllTemi();
 		model.addAttribute("temi", temi);
 		return "addquiz";
 	}
-	
+	}
 	/**
 	 * Crea un nuovo quiz con il tema specificato e reindirizza alla pagina "assegnaaule".
 	 *
@@ -166,13 +184,17 @@ public class GestioneQuizController {
 	  * @throws Exception se si verifica un errore durante l'esecuzione
 	  */
 	 @GetMapping("gestionequiz/add/assegnaaule")
-	    public String mostraAule(@RequestParam(name = "idQuiz") Long id, Model model) throws Exception  {
+	    public String mostraAule(@RequestParam(name = "idQuiz") Long id, Model model,Utente utente,HttpSession session) throws Exception  {
+		 int ruoloUtente = (int) session.getAttribute("ruoloUtente");
+		 if(ruoloUtente==0){
+		 return "redirect:/404";
+		 } else {
 	        Set<Aula> aule = quizService.getAllAule();
 	        model.addAttribute("aule", aule);
 	        model.addAttribute("idQuiz", id.toString());
 	        return "assegnaaule";
 	    }
-	 
+	 	}
 	 /**
 	  * Assegna le aule selezionate a un quiz specificato dall'ID e restituisce la pagina "successoaula".
 	  *

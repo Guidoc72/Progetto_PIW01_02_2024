@@ -16,82 +16,74 @@ import it.akt.models.Risultato;
 import it.akt.models.Utente;
 import it.akt.services.QuizService;
 import it.akt.services.UtenteService;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class StudentiController {
-	
-	private UtenteService utenteService ;
+
+	private UtenteService utenteService;
 	private QuizService quizService;
-	
-	public StudentiController (UtenteService utenteService, QuizService quizService) {
+
+	public StudentiController(UtenteService utenteService, QuizService quizService) {
 		this.utenteService = utenteService;
 		this.quizService = quizService;
 	}
 
 	@GetMapping("/listastudenti")
-	public String listaStudenti (Model model) {
-		List<Utente> listaStudenti = utenteService.findAllByRuolo(1); //1 è il ruolo dello studente
-		model.addAttribute("listastudenti", listaStudenti);	
-		return "listastudenti";
+	public String listaStudenti(Model model, Utente utente, HttpSession session) {
+		int ruoloUtente = (int) session.getAttribute("ruoloUtente");
+		if (ruoloUtente == 0) {
+			return "redirect:/404";
+		} else {
+			List<Utente> listaStudenti = utenteService.findAllByRuolo(1); // 1 è il ruolo dello studente
+			model.addAttribute("listastudenti", listaStudenti);
+			return "listastudenti";
+		}
 	}
-	
+
 	@GetMapping("/modificastudente/{id}")
-	public String modificaStudente(@PathVariable(name="id") Long id, Model model) {
-		model.addAttribute("studente", utenteService.getUtenteById(id));
-		return "modificastudente";
+	public String modificaStudente(@PathVariable(name = "id") Long id, Model model, Utente utente,
+			HttpSession session) {
+		int ruoloUtente = (int) session.getAttribute("ruoloUtente");
+		if (ruoloUtente == 0) {
+			return "redirect:/404";
+		} else {
+			model.addAttribute("studente", utenteService.getUtenteById(id));
+			return "modificastudente";
+		}
 	}
-	
+
 	@PostMapping("/utenteform")
-	public String studenteForm (@ModelAttribute Utente utente ) {
+	public String studenteForm(@ModelAttribute Utente utente) {
 		utenteService.updateUtente(utente);
 		return "redirect:/listastudenti";
 	}
-	
+
 	/**
-	 * Gestisce la chiamata HTTP GET all'url "/home".
-	 * Restituisce la view dell'utente che ha effettuato il log.
-	 * Condizione con @PreAuthorized: 
-	 * Se l'utente ha ruolo 1(=studente) vede i quiz che a disposizione in base all'aula a cui è assegnato.
-	 * Se l'utente ha ruolo 0(=docente) non vede i quiz.
-	 * @param 	id utente Utente
-	 * @param 	model Model
-	 * @return	/home
+	 * Gestisce la chiamata HTTP GET all'url "/esegui-quiz". Restituisce la view con
+	 * il quiz associato al tema che l'utente ha scelto nella pagina home.
+	 * 
+	 * @param id    utente Utente
+	 * @param id    quiz Quiz
+	 * @param model Model
+	 * @return /esegui-quiz
+	 * @throws Exception
 	 */
-	@GetMapping("/home/{id}") //"/home/{ruolo}/{id}?
-	//??@PreAuthorize("hasRole('0') or hasRole('USER')")??
-	/*
-	 * Questa annotazione verifica se l'utente corrente ha uno dei ruoli specificati tra parentesi. 
-	 * In questo caso, l'utente deve avere il ruolo "1" oppure il ruolo "ADMIN" per accedere a questa pagina.
-	 * Se l'utente non ha uno dei ruoli richiesti, verrà generata un'eccezione AccessDeniedException.
-	 * Annotazione per rendere visibile i quiz solo allo studente (0)
-	 */
-	public String getQuizByUtenteId(@PathVariable Long id, Model model) {
-	    Set<Quiz> quizzes = quizService.findQuizByUtenteId(id); 
-	    Utente utente = utenteService.getUtenteById(id);
-	    model.addAttribute("quizzes", quizzes);
-	    model.addAttribute("utente", utente); //per concatenazione!
-	    return "home";
-	}
-	
-	/**
-	 * Gestisce la chiamata HTTP GET all'url "/esegui-quiz".
-	 * Restituisce la view con il quiz associato al tema che l'utente ha scelto nella pagina home.
-	 * @param 	id utente Utente
-	 * @param 	id quiz Quiz
-	 * @param 	model Model
-	 * @return 	/esegui-quiz
-	 * @throws 	Exception
-	 */
-	@GetMapping("/esegui-quiz/{idUtente}/{idQuiz}") 
-	public String eseguiQuiz(@PathVariable Long idUtente, @PathVariable Long idQuiz, 
-							Model model) throws Exception  {
-		Quiz quiz = quizService.findQuizById(idQuiz);
-		System.out.println("TemaQuiz: "+quiz.getTemaQuiz().getNome());
-		Set<Domanda> domande = quizService.getDomandeByQuizId(idQuiz);
-		model.addAttribute("domande", domande);
-		model.addAttribute("quiz", quiz);
-	    model.addAttribute("idUtente", idUtente.toString());
-	    model.addAttribute("risultato", new Risultato());
-        return "esegui-quiz";
+	@GetMapping("/esegui-quiz/{idUtente}/{idQuiz}")
+	public String eseguiQuiz(@PathVariable Long idUtente, @PathVariable Long idQuiz, Model model, Utente utente,
+			HttpSession session) throws Exception {
+		int ruoloUtente = (int) session.getAttribute("ruoloUtente");
+		if (ruoloUtente == 1) {
+			return "redirect:/404";
+		} else {
+			Quiz quiz = quizService.findQuizById(idQuiz);
+			System.out.println("TemaQuiz: " + quiz.getTemaQuiz().getNome());
+			Set<Domanda> domande = quizService.getDomandeByQuizId(idQuiz);
+			model.addAttribute("domande", domande);
+			model.addAttribute("quiz", quiz);
+			model.addAttribute("idUtente", idUtente.toString());
+			model.addAttribute("risultato", new Risultato());
+			return "esegui-quiz";
+		}
 	}
 }
