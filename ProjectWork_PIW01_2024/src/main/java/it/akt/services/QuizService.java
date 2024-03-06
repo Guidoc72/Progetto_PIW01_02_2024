@@ -182,27 +182,28 @@ public class QuizService {
      * @return L'oggetto Quiz aggiornato con le aule assegnate.
      * @throws Exception Se non sono state selezionate aule o se il quiz non è trovato o non esistente.
      */
-	   public Quiz assegnaAule(Long id, List<Aula> aule) throws Exception {
-		   
-		   
-		   
-		   if(aule.size()==0) {
-			   throw new Exception("Non sono state selezionate aule per assegnare il quiz!");
-		   }
-		   
-		   Quiz quiz = quizRepository.findById(id)
-				   .orElseThrow(() -> new Exception("Quiz non trovato o non esistente con ID: " + id));
-		   
-		   for(int i = 0; i < aule.size(); i++) {
-			   
-			   List<Utente> utente = utenteRepository.findByAuleId(aule.get(i).getId());
-			   quiz.getAule().add(aule.get(i));			   
-			   for(int i2 = 0; i2 < utente.size(); i2++) {
-				   quiz.getUtente().add(utente.get(i));
-			   }
-		   }
-			return quizRepository.save(quiz);
-	   }
+    public Quiz assegnaAule(Long id, List<Aula> aule) throws Exception {
+	    if (aule.isEmpty()) {
+	        throw new Exception("Non sono state selezionate aule per assegnare il quiz!");
+	    }
+
+	    Quiz quiz = quizRepository.findById(id)
+	            .orElseThrow(() -> new Exception("Quiz non trovato o non esistente con ID: " + id));
+
+	    for (Aula aula : aule) {
+	        assegnaQuizAdAula(quiz, aula);
+	    }
+
+	    return quizRepository.save(quiz);
+	}
+
+	private void assegnaQuizAdAula(Quiz quiz, Aula aula) {
+	    quiz.getAule().add(aula);
+
+	    for (Utente utente : aula.getUtenti()) {
+	        quiz.getUtente().add(utente);
+	    }
+	}
     
     /**
      * Recupera un insieme di domande associate all'ID del quiz specificato.

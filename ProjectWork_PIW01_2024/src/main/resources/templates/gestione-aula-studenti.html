@@ -20,7 +20,7 @@
 				<label for="studente">Assegna studente:</label>
 					<select name="nuovoStudente" id="nuovoStudente">
 						<option value="studente" disabled>Seleziona</option>
-						<option th:each="utente : ${utenti_null}" th:value="${utente.id}"
+						<option th:each="utente : ${utenti_null}" th:if="${utente.ruolo==0}"th:value="${utente.id}"
 							th:text="${utente.cognome + ' ' + utente.nome}">
 						</option>
 					</select>
