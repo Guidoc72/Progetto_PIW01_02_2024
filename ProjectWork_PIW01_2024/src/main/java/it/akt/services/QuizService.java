@@ -11,6 +11,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import it.akt.models.Quiz;
+import it.akt.models.Risultato;
 import it.akt.models.TemaQuiz;
 import it.akt.models.Utente;
 import it.akt.models.Domanda;
@@ -18,6 +19,7 @@ import it.akt.models.Aula;
 import it.akt.repositories.AulaRepository;
 import it.akt.repositories.DomandaRepository;
 import it.akt.repositories.QuizRepository;
+import it.akt.repositories.RisultatoRepository;
 import it.akt.repositories.TemaQuizRepository;
 import it.akt.repositories.UtenteRepository;
 
@@ -39,6 +41,7 @@ public class QuizService {
 	private final TemaQuizRepository temaQuizRepository;
 	private final AulaRepository aulaRepository;
 	private final UtenteRepository utenteRepository;
+	private final RisultatoRepository risultatoRepository;
 
 	/**
 	 * Costruttore della classe `QuizService`.
@@ -46,12 +49,13 @@ public class QuizService {
 	 * @param quizRepository Il repository per i quiz.
 	 */
     @Autowired
-    public QuizService(QuizRepository quizRepository, DomandaRepository domandaRepository, TemaQuizRepository temaQuizRepository, AulaRepository aulaRepository, UtenteRepository utenteRepository) {
+    public QuizService(QuizRepository quizRepository, DomandaRepository domandaRepository, TemaQuizRepository temaQuizRepository, AulaRepository aulaRepository, UtenteRepository utenteRepository, RisultatoRepository risultatoRepository) {
         this.quizRepository = quizRepository;
         this.domandaRepository = domandaRepository;
         this.temaQuizRepository = temaQuizRepository;
         this.aulaRepository = aulaRepository;
         this.utenteRepository = utenteRepository;
+        this.risultatoRepository = risultatoRepository;
     }
     
     /**
@@ -86,24 +90,35 @@ public class QuizService {
     }
     
     /**
-     * Elimina un Quiz dato il suo ID.
+     * Elimina un quiz dato il suo ID.
      *
-     * @param id L'ID del Quiz da eliminare.
-     * @return 
-     * @throws Exception Se il Quiz non viene trovato o non esiste con l'ID specificato,
-     *                   oppure se l'eliminazione non riesce.
+     * @param id L'ID del quiz da eliminare.
+     * @return Il quiz eliminato o `null` se non è stato trovato.
+     * @throws Exception Se il quiz con l'ID specificato non esiste.
      */
-    public Quiz deleteQuizById(Long id) throws Exception{
-    	
-    	quizRepository.findById(id)
-                .orElseThrow(() -> new Exception("Quiz non trovato o non esistente con ID: " + id));
-    	
-    	try {
-    		quizRepository.deleteById(id);
-    	} catch (Exception e) {
-    		throw new Exception("Errore: Eliminazione non riuscita del quiz: " +id+ " .");
-    	}
-		return null;      	
+    public String deleteQuizById(Long id) {
+        try {
+            Quiz quiz = quizRepository.findById(id).orElseThrow();
+
+            for (Utente utente : quiz.getUtente()) {
+                utente.getQuiz().remove(quiz);
+                utenteRepository.save(utente);
+            }
+
+            for (Aula aula : quiz.getAule()) {
+                aula.getQuiz().remove(quiz);
+                aulaRepository.save(aula);
+            }
+
+            for (Risultato risultato : quiz.getRisultati()) {
+                risultatoRepository.delete(risultato);
+            }
+
+            quizRepository.delete(quiz);
+            return null;
+        } catch (Exception e) {
+            return "Errore: Quiz non trovato o non esistente con ID: " + id;
+        }
     }
     
     /**

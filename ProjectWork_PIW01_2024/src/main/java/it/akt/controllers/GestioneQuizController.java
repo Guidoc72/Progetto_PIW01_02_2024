@@ -79,8 +79,8 @@ public class GestioneQuizController {
 	@GetMapping("gestionequiz/delete/{idQuiz}")
 	public String deleteQuiz(@PathVariable(name = "idQuiz") Long idQuiz, Model model) throws Exception { 
 		try {
-		Quiz deleteQuiz = quizService.deleteQuizById(idQuiz);
-		model.addAttribute("messaggio", "true");
+			quizService.deleteQuizById(idQuiz);
+			model.addAttribute("messaggio", "true");
 		}catch (Exception e) {
 			model.addAttribute("messaggio", "false");
 		}
