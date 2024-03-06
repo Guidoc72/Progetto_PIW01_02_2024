@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import it.akt.models.Domanda;
 import it.akt.models.TemaQuiz;
+import it.akt.models.Utente;
 import it.akt.services.DomandaService;
 import it.akt.services.TemaQuizService;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class DomandaController {
@@ -27,13 +29,17 @@ public class DomandaController {
 	}
 	
 	@GetMapping("/newdomanda")
-	public String newdomanda (Model model){
+	public String newdomanda (Model model,Utente utente,HttpSession session){
+		int ruoloUtente = (int) session.getAttribute("ruoloUtente");
+		if(ruoloUtente==0){
+		return "redirect:/404";
+		} else {
 		List<TemaQuiz> temaList = temaQuizService.getAllTemi();		
 		model.addAttribute("domanda", new Domanda());
 		model.addAttribute("temi", temaList);
 		return "newdomanda";
 	}
-	
+	}
 	@PostMapping("/domandaform")
 	public String newdomanda (@RequestParam ("temaquiz")String temaquiz, @ModelAttribute Domanda domanda) {
 		domanda.setTema(temaQuizService.getTemaById(Long.parseLong(temaquiz)));
@@ -42,13 +48,21 @@ public class DomandaController {
 	}
 	
 	@GetMapping("/listadomande/{id}")
-	public String listaDomande (@PathVariable(name="id") Long id, Model model) {
+	public String listaDomande (@PathVariable(name="id") Long id, Model model,Utente utente,HttpSession session) {
+		int ruoloUtente = (int) session.getAttribute("ruoloUtente");
+		if(ruoloUtente==0){
+		return "redirect:/404";
+		} else {
 		model.addAttribute("listadomande",domandaService.findDomandaByTemaId(id));
 		return "listadomande";
 	}
-	
+	}
 	@GetMapping("/eliminadomanda/{id}")
-	public String eliminaDomanda (@PathVariable(name="id") Long id, Model model) {
+	public String eliminaDomanda (@PathVariable(name="id") Long id, Model model,Utente utente,HttpSession session) {
+		int ruoloUtente = (int) session.getAttribute("ruoloUtente");
+		if(ruoloUtente==0){
+		return "redirect:/404";
+		} else {
 		Domanda domanda = domandaService.findDomandaById(id);
 		if(domanda.getQuiz().isEmpty()) {
 			domandaService.deleteDomandaById(id);
@@ -58,5 +72,5 @@ public class DomandaController {
 		}			
 		return "listadomande";
 	}	
-		
+	}	
 }

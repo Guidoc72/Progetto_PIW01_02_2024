@@ -26,7 +26,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-@SessionAttributes(names = {"nomeUtente", "cognomeUtente"})
 public class UtenteController {
 	
 	@Autowired
@@ -48,17 +47,6 @@ public class UtenteController {
 		this.risultatoService = risultatoService;
 		this.quizService = quizService;
 	}
-
-	@GetMapping("/registrationdgsdfgadgdf")
-    public String getAllUsers(Model model) {
-        List<Utente> allUsers = utenteService.getUtenteList();
-        model.addAttribute("utente", allUsers);
-        
-        
-        return "login";
-    }
-    
-
 	/**
 	 * Controller che cattura i dati dal form di Login, controlla se l'utente è presente nel DB e se la password corrisponde a quella salvata	
 	 * @param formUser	User
@@ -86,9 +74,7 @@ public class UtenteController {
 			String username = utente.getEmail();
 //			session.setAttribute("utente", username);
 			String nomeUtente = (String) session.getAttribute("utente");
-			
-		
-			
+
 			if(utenteService.authorizedUser(utente)) {
 				//session.setAttribute("utenteIsAutothenticated", username);
 				Utente dbUtente = utenteService.getUtenteByEmail(utente.getEmail());
@@ -96,8 +82,6 @@ public class UtenteController {
 				session.setAttribute("cognomeUtente", dbUtente.getCognome());
 				session.setAttribute("ruoloUtente", dbUtente.getRuolo());
 				session.setAttribute("idUtente", dbUtente.getId());
-				
-				
 				dbUtente.setPassword("");
 				model.addAttribute("utente", dbUtente);
 				if(dbUtente.getRuolo() == 1 || dbUtente.getRuolo() == 0) { 
@@ -111,57 +95,23 @@ public class UtenteController {
 			return "login";
 		
 		}
-
-	
-		
 		@GetMapping("/home")
 		public String home(@ModelAttribute Utente utente, Model model, HttpSession session) {
 			model.addAttribute("utente", utente);
-
-
 			Long idUtente = (Long) session.getAttribute("idUtente");
 			List<Risultato> r = risultatoService.findAllByUtenteId(idUtente);
 			Set<Quiz> q = quizService.findQuizByUtenteId(idUtente);
 			Aula a = aulaService.findByUtentiId(idUtente);
 			model.addAttribute("quizzes", q);
 			model.addAttribute("risultati", r);
-			model.addAttribute("aula",a);
-
-
-
-
-			 //Utente utente =(Utente) session.getAttribute("utenteIsAutothenticated");
-			
-			
-			
+			model.addAttribute("aula",a);	
 			return "home";
 		
 		}
 		
 		@GetMapping("/logout")
 		public String logout(Model model, HttpSession session, HttpServletRequest req, HttpServletResponse res) {
-			
-			String nomeUtente = (String) session.getAttribute("utente");
-			model.addAttribute("utente", new Utente());
-			
-			Cookie [] cookies = req.getCookies();
-	    	for(Cookie c : cookies) {
-	    		if(c.getName().equals("JSESSIONID")) {
-	    			
-	    			
-	    			c.setValue(null);
-	    			c.setMaxAge(0);
-	    			c.setPath("/");
-	    			res.addCookie(c);
-	    			
-	    		}
-	    	}
 	    	session.invalidate();
 			return "redirect:/login";
 		}
-		
-		
-	
-	
-
 }
