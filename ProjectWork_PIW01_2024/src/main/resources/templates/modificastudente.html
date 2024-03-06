@@ -3,55 +3,79 @@
 		xmlns:th="http//www.thymeleaf.org">
 	<head>
 		<meta charset="ISO-8859-1">
-		<link 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-				rel="stylesheet">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+	    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+	    
+	    <style th:replace="~{fragments/stile-head :: stile-head}"></style>
 		<title>Modifica Studente</title>
 	</head>
 	
+	<style>
+    .form-check-input.dark {
+         background-color: #343a40;
+         border-color: #343a40;
+    }
+    .form-check-input.dark:checked {
+         background-color: green;
+         border-color: black;
+    }
+    .backcolorblack{
+    background-color: black;
+    color: white;
+    }
+    </style>
+	
 <body>
 
-	<h1>MODIFICA STUDENTE</h1>
+	<header th:insert="~{fragments/navbar.html :: navmenu}"></header>
 	
-	<form th:action="@{/utenteform}" method="post" th:object="${studente}">	
+	<br>
 	
-	 <div class="input-group mb-3">
-  		<span class="input-group-text" id="inputGroup-sizing-default">ID</span>
-  		<input type="text" th:value="${studente.id}" th:field="${studente.id}"  class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" readonly="readonly">
-	</div>
+	<h3 class="text-center">MODIFICA STUDENTE</h3>
 	
-	<div class="input-group mb-3">
-  		<span class="input-group-text" id="inputGroup-sizing-default">RUOLO</span>
-  		<input type="text" th:value="${studente.ruolo}" th:field="${studente.ruolo}"  class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" readonly="readonly">
-	</div>
+	<div class="container" style="border: solid 2px black; border-radius: 3px;">
+		
+	<form th:action="@{/utenteform}" method="post" th:object="${studente}" class="container">	
 	
-  	<div class="input-group mb-3">
-  		<span class="input-group-text" id="inputGroup-sizing-default">Nome</span>
-  		<input type="text" th:value="${studente.nome}" th:field="${studente.nome}"  class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-	</div>
+	<br>
+	  	
+	  	<div class="input-group mb-3">
+	  		<span class="input-group-text backcolorblack">Nome</span>
+	  		<input type="text" th:value="${studente.nome}" th:field="${studente.nome}"  class="form-control">
+		</div>
+		
+	  	<div class="input-group mb-3">
+	  		<span class="input-group-text backcolorblack">Cognome</span>
+	  		<input type="text" th:value="${studente.cognome}" th:field="${studente.cognome}" class="form-control">
+		</div>
+		
+		<div class="input-group mb-3">
+	  		<span class="input-group-text backcolorblack">Email</span>
+	  		<input type="text" th:value="${studente.email}" th:field="${studente.email}" class="form-control">
+		</div>
+		
+		<div class="input-group mb-3">
+	  		<span class="input-group-text backcolorblack">Telefono</span>
+	  		<input type="text" th:value="${studente.telefono}" th:field="${studente.telefono}" class="form-control">
+		</div>
+		
+		<div class="form-check">
+	  		<input type="checkbox" th:checked="${studente.isEnabled}" th:field="*{enabled}" class="form-check-input dark">
+	  		<label class="form-check-label">Disabilitato</label>
+		</div> 
+		
+		<br>
+		
+		<div>  
+			<button type="submit" class="btn btn-success">Aggiorna Studente</button>
+		</div> 
 	
-  	<div class="input-group mb-3">
-  		<span class="input-group-text" id="inputGroup-sizing-default">Cognome</span>
-  		<input type="text" th:value="${studente.cognome}" th:field="${studente.cognome}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-	</div>
-	
-	<div class="input-group mb-3">
-  		<span class="input-group-text" id="inputGroup-sizing-default">Email</span>
-  		<input type="text" th:value="${studente.email}" th:field="${studente.email}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-	</div>
-	
-	<div class="input-group mb-3">
-  		<span class="input-group-text" id="inputGroup-sizing-default">Telefono</span>
-  		<input type="text" th:value="${studente.telefono}" th:field="${studente.telefono}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-	</div>
-	
-	<div>
-  		<label >Abilitato</label>
-  		<input type="checkbox" th:checked="${studente.isEnabled}" th:field="*{enabled}">
-	</div> 
-	
-	<div>  
-		<button type="submit" class="btn btn-primary">Aggiorna Studente</button>
-	</div> 
+		<input style="visibility: hidden;" type="text" th:value="${studente.id}" th:field="${studente.id}"  class="form-control" readonly>
+		<input style="visibility: hidden;" type="text" th:value="${studente.ruolo}" th:field="${studente.ruolo}"  class="form-control" readonly>
+		<input style="visibility: hidden;" type="text" th:value="${studente.password}" th:field="${studente.password}"  class="form-control" readonly>
 	</form>
+	
+	</div>
+
 </body>
 </html>

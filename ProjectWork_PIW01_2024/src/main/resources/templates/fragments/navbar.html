@@ -45,6 +45,12 @@
 			          			Gestione Temi e Domande
 			          	</button>
 			        	</div>
+			        	<div th:if="${session.ruoloUtente == 1}" class="nav-item">
+			        	
+			          	<button th:onclick="window.location.href='/listastudenti' " class="btn btn btn-dark me-2 text-light fs-6 fs-md-4" >
+			          			Gestione Studenti
+			          	</button>
+			        	</div>
 			          	<button th:onclick="window.location.href='/logout' " class="btn btn btn-dark me-2 text-light fs-6 fs-md-4" >
 			          			Logout
 			          	</button>

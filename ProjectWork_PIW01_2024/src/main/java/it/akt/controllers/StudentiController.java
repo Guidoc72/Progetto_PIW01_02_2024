@@ -35,7 +35,7 @@ public class StudentiController {
 		if (ruoloUtente == 0) {
 			return "redirect:/404";
 		} else {
-			List<Utente> listaStudenti = utenteService.findAllByRuolo(1); // 1 è il ruolo dello studente
+			List<Utente> listaStudenti = utenteService.findAllByRuolo(0); // 0 è il ruolo dello studente
 			model.addAttribute("listastudenti", listaStudenti);
 			return "listastudenti";
 		}
