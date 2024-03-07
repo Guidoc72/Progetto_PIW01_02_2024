@@ -81,6 +81,7 @@ public class UtenteController {
 				session.setAttribute("nomeUtente", dbUtente.getNome());
 				session.setAttribute("cognomeUtente", dbUtente.getCognome());
 				session.setAttribute("ruoloUtente", dbUtente.getRuolo());
+				session.setAttribute("abilitato", dbUtente.isEnabled());
 				session.setAttribute("idUtente", dbUtente.getId());
 				dbUtente.setPassword("");
 				model.addAttribute("utente", dbUtente);
@@ -97,14 +98,21 @@ public class UtenteController {
 		}
 		@GetMapping("/home")
 		public String home(@ModelAttribute Utente utente, Model model, HttpSession session) {
-			model.addAttribute("utente", utente);
-			Long idUtente = (Long) session.getAttribute("idUtente");
-			List<Risultato> r = risultatoService.findAllByUtenteId(idUtente);
-			Set<Quiz> q = quizService.findQuizByUtenteId(idUtente);
-			Aula a = aulaService.findByUtentiId(idUtente);
-			model.addAttribute("quizzes", q);
-			model.addAttribute("risultati", r);
-			model.addAttribute("aula",a);	
+			
+			boolean disabilitato = (boolean) session.getAttribute("abilitato");
+
+			if (disabilitato == true) {
+				model.addAttribute("s_alert", true);				
+			} else {				
+				model.addAttribute("utente", utente);
+				Long idUtente = (Long) session.getAttribute("idUtente");
+				List<Risultato> r = risultatoService.findAllByUtenteId(idUtente);
+				Set<Quiz> q = quizService.findQuizByUtenteId(idUtente);
+				Aula a = aulaService.findByUtentiId(idUtente);
+				model.addAttribute("quizzes", q);
+				model.addAttribute("risultati", r);
+				model.addAttribute("aula",a);	
+			}
 			return "home";
 		
 		}
