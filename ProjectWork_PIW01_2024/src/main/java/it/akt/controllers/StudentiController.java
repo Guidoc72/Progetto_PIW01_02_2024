@@ -77,7 +77,6 @@ public class StudentiController {
 			return "redirect:/404";
 		} else {
 			Quiz quiz = quizService.findQuizById(idQuiz);
-			System.out.println("TemaQuiz: " + quiz.getTemaQuiz().getNome());
 			Set<Domanda> domande = quizService.getDomandeByQuizId(idQuiz);
 			model.addAttribute("domande", domande);
 			model.addAttribute("quiz", quiz);

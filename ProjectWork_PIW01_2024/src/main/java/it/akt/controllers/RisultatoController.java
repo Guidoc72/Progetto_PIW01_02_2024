@@ -70,20 +70,12 @@ public class RisultatoController {
                 })
                 .orElse(-1L);
         
-        System.out.println(idClass);
-
         if(splitted.length == 2) {
             List<Risultato> r = this.risultatoService.findAllByQuizId(idQuiz,idClass);
             Set<Domanda> d = this.domandaService.getAllDomandeByQuizId(idQuiz);
 
             if(r.isEmpty())
                 return "error";
-            for (Risultato t: r) {
-                System.out.println(t.getQuiz().getId() + " " + t.getUtente().getId());
-            }
-            for (Domanda t: d) {
-                System.out.println(t.getQuesito() + " " + t.getId());
-            }
             model.addAttribute("ListaRisultati", r);
             model.addAttribute("ListaDomande", d);
             return "results";
