@@ -99,11 +99,11 @@ public class ForgotPasswordController {
 		
 		helper.setTo(email);
 		
-		String subject = "Con questo link può resetare la password";
+		String subject = "Con questo link può resettare la password";
 		
 		String content = "<p> Ciao, </p>"
-				+ "<p>Hai chiesto di resetare la sua password</p>"
-				+ "<p>Chicca il link sotto per cambiare la sua password</p>"
+				+ "<p>Hai chiesto di resettare la sua password</p>"
+				+ "<p>Clicca il link sotto per cambiare la sua password</p>"
 				+ "<p><b><a href=\"" + resetPasswordLink + "\"> Resetta la password </a> </p>"
 				+ "<p>Ignora questa email si ricorda la password o no ha fatto la richiesta per cambiare.</p>";
 		

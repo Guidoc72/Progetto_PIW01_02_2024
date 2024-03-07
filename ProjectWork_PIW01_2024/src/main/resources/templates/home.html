@@ -16,7 +16,7 @@
 
 		<header th:insert="~{fragments/navbar.html :: navmenu}"></header>
 		
-		<p>Benvenuto, <span th:text="${session.nomeUtente} + ' ' + ${session.cognomeUtente}"></span></p>
+		<p class="text m-4">Benvenuto, <span  th:text="${session.nomeUtente} + ' ' + ${session.cognomeUtente}"></span></p>
 			
  			<div th:replace="~{fragments/home-user :: home-user(quizzes=${quizzes}, risultati=${risultati}, aula=${aula})}"></div>
 
