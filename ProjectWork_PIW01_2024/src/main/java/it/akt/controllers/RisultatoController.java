@@ -117,7 +117,7 @@ public class RisultatoController {
         Domanda[] dom = d.toArray(new Domanda[0]);
         int punteggio = 0;
         for (int i = 0; i < d.size(); i++) {
-            if(risultato.getRisposta(i) == dom[0].getRisposta_giusta())
+            if(risultato.getRisposta(i) == dom[i].getRisposta_giusta())
                 punteggio++;
         }
         
