@@ -121,15 +121,7 @@ public class RisultatoController {
                 punteggio++;
         }
         
-        System.out.println("risposte:");
-        for(int i = 0; i<10; i++) {
-        	System.out.println(risultato.getRisposta(i));
-        }
-        
         risultato.setPunteggio(punteggio);
-        
-        System.out.println("Punteggio:");
-        System.out.println(punteggio);
 
         risultatoService.addRisultato(risultato);
 
