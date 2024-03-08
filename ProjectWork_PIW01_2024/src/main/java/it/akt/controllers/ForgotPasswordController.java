@@ -158,7 +158,6 @@ public class ForgotPasswordController {
 			
 		redirectAttributes.addFlashAttribute("showToast3", true);
 	    // Stampa un messaggio di debug per verificare l'invio del secondo toast.
-	    System.out.println("Toast inviato a login.html");
 		return "redirect:/login";
 	}
 

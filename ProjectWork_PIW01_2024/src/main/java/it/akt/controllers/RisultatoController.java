@@ -70,20 +70,12 @@ public class RisultatoController {
                 })
                 .orElse(-1L);
         
-        System.out.println(idClass);
-
         if(splitted.length == 2) {
             List<Risultato> r = this.risultatoService.findAllByQuizId(idQuiz,idClass);
             Set<Domanda> d = this.domandaService.getAllDomandeByQuizId(idQuiz);
 
             if(r.isEmpty())
                 return "error";
-            for (Risultato t: r) {
-                System.out.println(t.getQuiz().getId() + " " + t.getUtente().getId());
-            }
-            for (Domanda t: d) {
-                System.out.println(t.getQuesito() + " " + t.getId());
-            }
             model.addAttribute("ListaRisultati", r);
             model.addAttribute("ListaDomande", d);
             return "results";
@@ -117,19 +109,11 @@ public class RisultatoController {
         Domanda[] dom = d.toArray(new Domanda[0]);
         int punteggio = 0;
         for (int i = 0; i < d.size(); i++) {
-            if(risultato.getRisposta(i) == dom[0].getRisposta_giusta())
+            if(risultato.getRisposta(i) == dom[i].getRisposta_giusta())
                 punteggio++;
         }
         
-        System.out.println("risposte:");
-        for(int i = 0; i<10; i++) {
-        	System.out.println(risultato.getRisposta(i));
-        }
-        
         risultato.setPunteggio(punteggio);
-        
-        System.out.println("Punteggio:");
-        System.out.println(punteggio);
 
         risultatoService.addRisultato(risultato);
 
