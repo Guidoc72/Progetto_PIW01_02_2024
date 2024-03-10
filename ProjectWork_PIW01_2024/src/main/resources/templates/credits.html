@@ -3,38 +3,41 @@
 <head>
     <!-- Altri elementi head qui -->
 </head>
-<body>
+<body class="conta" style="background-image: url('images/texture_black.png'); background-repeat: no-repeat; background-attachment: fixed; background-size: cover;">
     <div th:fragment="navmenu">
-        <script>
-            $(document).ready(function navbarName() {
-                var navName = document.getElementsByTagName('title');
-                document.getElementById('navbar-title').innerHTML = navName[0].innerText;
-            });
-        </script>
-
+  
         <nav class="navbar navbar-expand-lg navbar-light custom-navbar">
             <div class="container">
                 <a class="navbar-brand">
                     <img src="../../images/logo_progetto.png" width="50" height="50" alt="Logo">
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                                
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <div>
-                        <button th:onclick="window.location.href='/home'" class="btn btn btn-dark me-2 text-light fs-6 fs-md-4">
-                            Home
+                        <button th:onclick="window.location.href='/login'" class="btn btn btn-dark me-2 text-light fs-6 fs-md-4">
+                            Indietro
                         </button>
                     </div>
+                    <br>
 
-                    <!-- Altri pulsanti qui -->
-
-                    <div style="position: absolute; bottom: 10px; right: 10px;">
-                        <button th:onclick="window.location.href='/credits'" class="btn btn btn-dark text-light fs-6 fs-md-4">
-                            Credits
-                        </button>
-                    </div>
+<a class="navbar-brand">
+                    <img src="../../images/20240216_093550.jpg" width="600" height="400">
+                </a>
+<a class="navbar-brand">
+                    <img src="../../images/20240216_093601.jpg" width="600" height="400" style="margin-left: 20px;">
+                </a>
+                   <p style="font-size: 24px; color: white; text-shadow: 2px 2px 4px #00ff00;">Classe Akt 2023-2024:</p>
+                   <p style="font-size: 24px; color: white; text-shadow: 2px 2px 4px #00ff00;">Diego Di Forti</p>
+                   <p style="font-size: 24px; color: white; text-shadow: 2px 2px 4px #00ff00;">Rosa Di Corato</p>
+                   <p style="font-size: 24px; color: white; text-shadow: 2px 2px 4px #00ff00;">Samuele Romanelli</p>
+                   <p style="font-size: 24px; color: white; text-shadow: 2px 2px 4px #00ff00;">Valerio Ruggeri</p>
+                   <p style="font-size: 24px; color: white; text-shadow: 2px 2px 4px #00ff00;">Emanuele Ercoletti</p>
+                   <p style="font-size: 24px; color: white; text-shadow: 2px 2px 4px #00ff00;">Nicola Salvi</p>
+                   <p style="font-size: 24px; color: white; text-shadow: 2px 2px 4px #00ff00;">Edoardo Carabaggiu</p>
+                   <p style="font-size: 24px; color: white; text-shadow: 2px 2px 4px #00ff00;">Riccardo La Pietra</p>
+                   <p style="font-size: 24px; color: white; text-shadow: 2px 2px 4px #00ff00;">Rodrigo Lacarruba</p>
+                   <p style="font-size: 24px; color: white; text-shadow: 2px 2px 4px #00ff00;">Federico Granaldi</p>
+                   
                 </div>
             </div>
         </nav>

@@ -3,7 +3,7 @@ package it.akt.controllers;
 import jakarta.servlet.http.HttpServletRequest;
 
 /**
- * serve per mandare la mail di ricupero password
+ * serve per mandare la mail di recupero password
  * @author Rodrigo
  */
 
