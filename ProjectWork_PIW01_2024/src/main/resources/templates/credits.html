@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Altri elementi head qui -->
+</head>
+<body>
+    <div th:fragment="navmenu">
+        <script>
+            $(document).ready(function navbarName() {
+                var navName = document.getElementsByTagName('title');
+                document.getElementById('navbar-title').innerHTML = navName[0].innerText;
+            });
+        </script>
+
+        <nav class="navbar navbar-expand-lg navbar-light custom-navbar">
+            <div class="container">
+                <a class="navbar-brand">
+                    <img src="../../images/logo_progetto.png" width="50" height="50" alt="Logo">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <div>
+                        <button th:onclick="window.location.href='/home'" class="btn btn btn-dark me-2 text-light fs-6 fs-md-4">
+                            Home
+                        </button>
+                    </div>
+
+                    <!-- Altri pulsanti qui -->
+
+                    <div style="position: absolute; bottom: 10px; right: 10px;">
+                        <button th:onclick="window.location.href='/credits'" class="btn btn btn-dark text-light fs-6 fs-md-4">
+                            Credits
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!-- Altri contenuti qui -->
+</body>
+</html>
