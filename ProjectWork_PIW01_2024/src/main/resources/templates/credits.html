@@ -1,47 +1,47 @@
 <!DOCTYPE html>
-<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<html lang="it">
 <head>
-    <!-- Altri elementi head qui -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Credits</title>
+    <style>
+        body {
+            background-image: url('images/texture_black.png');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            color: white;
+            text-shadow: 2px 2px 4px #00ff00;
+        }
+    </style>
 </head>
-<body class="conta" style="background-image: url('images/texture_black.png'); background-repeat: no-repeat; background-attachment: fixed; background-size: cover;">
-    <div th:fragment="navmenu">
-  
-        <nav class="navbar navbar-expand-lg navbar-light custom-navbar">
-            <div class="container">
-                <a class="navbar-brand">
-                    <img src="../../images/logo_progetto.png" width="50" height="50" alt="Logo">
-                </a>
-                                
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <div>
-                        <button th:onclick="window.location.href='/login'" class="btn btn btn-dark me-2 text-light fs-6 fs-md-4">
-                            Indietro
-                        </button>
-                    </div>
-                    <br>
-
-<a class="navbar-brand">
-                    <img src="../../images/20240216_093550.jpg" width="600" height="400">
-                </a>
-<a class="navbar-brand">
-                    <img src="../../images/20240216_093601.jpg" width="600" height="400" style="margin-left: 20px;">
-                </a>
-                   <p style="font-size: 24px; color: white; text-shadow: 2px 2px 4px #00ff00;">Classe Akt 2023-2024:</p>
-                   <p style="font-size: 24px; color: white; text-shadow: 2px 2px 4px #00ff00;">Diego Di Forti</p>
-                   <p style="font-size: 24px; color: white; text-shadow: 2px 2px 4px #00ff00;">Rosa Di Corato</p>
-                   <p style="font-size: 24px; color: white; text-shadow: 2px 2px 4px #00ff00;">Samuele Romanelli</p>
-                   <p style="font-size: 24px; color: white; text-shadow: 2px 2px 4px #00ff00;">Valerio Ruggeri</p>
-                   <p style="font-size: 24px; color: white; text-shadow: 2px 2px 4px #00ff00;">Emanuele Ercoletti</p>
-                   <p style="font-size: 24px; color: white; text-shadow: 2px 2px 4px #00ff00;">Nicola Salvi</p>
-                   <p style="font-size: 24px; color: white; text-shadow: 2px 2px 4px #00ff00;">Edoardo Carabaggiu</p>
-                   <p style="font-size: 24px; color: white; text-shadow: 2px 2px 4px #00ff00;">Riccardo La Pietra</p>
-                   <p style="font-size: 24px; color: white; text-shadow: 2px 2px 4px #00ff00;">Rodrigo Lacarruba</p>
-                   <p style="font-size: 24px; color: white; text-shadow: 2px 2px 4px #00ff00;">Federico Granaldi</p>
-                   
-                </div>
-            </div>
-        </nav>
+<body>
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <img src="../../images/logo_progetto.png" width="50" height="50" alt="Logo">
+        </a>
+        <br>
+        <br>
+        <button onclick="window.location.href='/login'" class="btn btn-dark me-2 text-light fs-6 fs-md-4">
+            Indietro
+        </button>
+        <br>
+        <br>
+        <img src="../../images/20240216_093550.jpg" width="600" height="400">
+        <img src="../../images/20240216_093601.jpg" width="600" height="400" style="margin-left: 20px;">
+        <br>
+        <p style="font-size: 24px;">Classe Akt 2023-2024 :</p>
+        <p style="font-size: 24px;">Diego Di Forti</p>
+        <p style="font-size: 24px;">Rosa Dicorato</p>
+        <p style="font-size: 24px;">Samuele Romanelli</p>
+        <p style="font-size: 24px;">Valerio Ruggieri</p>
+        <p style="font-size: 24px;">Emanuele Ercoletti</p>
+        <p style="font-size: 24px;">Nicola Salvi</p>
+        <p style="font-size: 24px;">Federico Granaldi</p>
+        <p style="font-size: 24px;">Riccardo La Pietra</p>
+        <p style="font-size: 24px;">Rodrigo Lacarrubba Rolon</p>
+        <p style="font-size: 24px;">Edoardo Garabagiu</p>
+        
     </div>
-    <!-- Altri contenuti qui -->
 </body>
 </html>
